@@ -19,6 +19,10 @@
     "paths": {
       // "@/*": ["src/*"],
       "@Components/*": ["./Components/*"],
+      "@atoms/*": ["./Components/atoms/*"],
+      "@molecules/*": ["./Components/molecules/*"],
+      "@organisms/*": ["./Components/organisms/*"],
+      "@templates/*": ["./Components/templates/*"],
       "@Pages/*": ["./Pages/*"]
     }
   },

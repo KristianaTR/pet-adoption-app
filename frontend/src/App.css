@@ -1,17 +1,20 @@
 :root {
   /*colors*/
-  --text-dark: #2D2A2D;
-  --text-grey: #706C6C;
+  --text-dark: #2d2a2d;
+  --text-grey: #706c6c;
+  --text-white: #ffffff;
 
-  --background-white: #FFFFFF;
-  --background-light:#ECEFF2;
-  --background-dark: #AEA69F;
+  --background-white: #ffffff;
+  --background-light: #eceff2;
+  --background-dark: #aea69f;
 
-  --accent: #66574B;
+  --accent: #66574b;
 
-/*typography*/
---typography-text-font-family: 'Roboto', sans-serif;
+  --button-default: #66574b;
+  --button-hover: #aea69f;
 
+  /*typography*/
+  --typography-text-font-family: "Roboto", sans-serif;
 }
 
 body {
