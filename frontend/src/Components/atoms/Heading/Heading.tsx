@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { HeadingProps } from './Heading.types';
 
 const StyledHeading = styled.h1`
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
+  font-family: var(--typography-accent-font-family);
   color: var(--text-dark);
 `;
 

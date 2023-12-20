@@ -1,4 +1,5 @@
 import Header from "@Components/organisms/Header"
+import SectionAdopt from "@Components/organisms/SectionAdopt";
 import SectionHero from "@organisms/SectionHero"
 import styled from "styled-components";
 
@@ -12,6 +13,7 @@ const Home = () => {
     <StyledHome>
       <Header/>
       <SectionHero/>
+      <SectionAdopt/>
     </StyledHome>
   )
 }

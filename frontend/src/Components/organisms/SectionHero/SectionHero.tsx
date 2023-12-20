@@ -4,12 +4,10 @@ import Image from "@atoms/Image";
 
 const SectionHero = () => {
   return (
-    <div>
-        <SectionTemplate>
-            <Heading text="ADOPT NOW AND SAVE LIVES"/>
-            <Image src="/Images/hero-img.jpg" alt="pets img"/>
-        </SectionTemplate>
-    </div>
+    <SectionTemplate>
+        <Heading text="Adopt now and save lives"/>
+        <Image src="/Images/hero-img.jpg" alt="pets img"/>
+    </SectionTemplate>
   )
 }
 

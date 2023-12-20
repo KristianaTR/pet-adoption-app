@@ -15,6 +15,7 @@
 
   /*typography*/
   --typography-text-font-family: "Roboto", sans-serif;
+  --typography-accent-font-family: 'Shadows Into Light', cursive;
 }
 
 body {
