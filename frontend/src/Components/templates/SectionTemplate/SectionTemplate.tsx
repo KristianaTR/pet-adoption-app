@@ -9,6 +9,10 @@ const SectionContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+//   &:first-child {
+//     padding-top: 90px;
+//   }
 `;
 
 const SectionTemplate = ({ children }: SectionProps) => {

@@ -9,7 +9,7 @@ const NavigationWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-`
+`;
 
 const NavLogo = styled.div`
   img {
@@ -91,11 +91,9 @@ function CustonLink({
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
   return (
-    <li className={isActive ? "active" : ""}>
-      <Link to={to} {...props}>
-        {children}
-      </Link>
-    </li>
+    <Link to={to} {...props} className={isActive ? "active" : ""}>
+      {children}
+    </Link>
   );
 }
 
