@@ -8,7 +8,7 @@ const StyledHome = styled.div`
   flex-direction: column;
 `;
 
-const Home = () => {
+const HomePage = () => {
   return (
     <StyledHome>
       <Header/>
@@ -18,4 +18,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage
