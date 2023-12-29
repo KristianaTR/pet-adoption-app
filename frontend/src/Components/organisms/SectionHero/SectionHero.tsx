@@ -6,7 +6,7 @@ const SectionHero = () => {
   return (
     <SectionTemplate>
         <Heading text="Adopt now and save lives"/>
-        <Image src="/Images/hero-img.jpg" alt="pets img" mode="styled"/>
+        <Image src="/Images/hero-img.jpg" alt="pets img"/>
     </SectionTemplate>
   )
 }
