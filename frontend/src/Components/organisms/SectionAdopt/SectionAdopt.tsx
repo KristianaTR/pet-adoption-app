@@ -41,9 +41,9 @@ const SectionAdopt = () => {
           //   // type: "dog",
           //   page: 1,
           // },
-          // headers: {
-          //   Authorization: `Bearer ${accessToken}`,
-          // },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         console.log(response.data.types);
         setPetTypes(response.data.types);

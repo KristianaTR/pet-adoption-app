@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-
+import petsReducer from './petsSlice';
 
 const store = configureStore({
   reducer: {
-    // movies: movieReducer,
-    // users: userReducer,
+    pets: petsReducer,
+  
     // Add other reducers if needed
   },
 })

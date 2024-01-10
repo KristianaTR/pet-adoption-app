@@ -6,14 +6,9 @@ const DefaultImage = styled.img`
   height: auto;
 `;
 
-const StyledImage = styled(DefaultImage)`
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-`;
-
 const Image = ({ src, alt }: ImageProps) => {
   return (
-    <StyledImage src={src} alt={alt} />
+    <DefaultImage src={src} alt={alt} />
   )
 }
 
