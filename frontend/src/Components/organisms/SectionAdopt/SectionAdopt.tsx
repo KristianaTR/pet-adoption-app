@@ -1,13 +1,46 @@
-import Heading from "@Components/atoms/Heading";
+import Heading from "@atoms/Heading";
+import Paragraph from "@atoms/Paragraph";
 import CardTemplate from "@Components/templates/CardTemplate";
-import ContainerTemplate from "@Components/templates/ContainerTemplate";
+import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
+import Image from "@atoms/Image";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 interface PetType {
   name: string;
 }
+
+interface PetIconsType {
+  [key: string]: string;
+}
+
+const petTypeMappings: { [displayName: string]: string } = {
+  'Small & Furry': 'smallAndFurry',
+  'Scales, Fins & Other': 'scalesFinsAndOther',
+};
+
+const petIcons: PetIconsType = {
+  dog: '/Images/icon-dog.png',
+  cat: '/Images/icon-cat.png',
+  rabbit: '/Images/icon-rabbit.png',
+  smallAndFurry: '/Images/icon-small&furry.png',
+  horse: '/Images/icon-horse.png',
+  bird: '/Images/icon-bird.png',
+  scalesFinsAndOther: '/Images/icon-aquarium.png',
+  barnyard: '/Images/icon-farm.png',
+  default: '/Images/icon-paw.png',
+  
+}
+
+const getIconPath = (displayName: string): string => {
+  const key = petTypeMappings[displayName] || displayName.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+  console.log(displayName);
+  console.log('Key:', key);
+  console.log('Mapped Key:', petIcons[key]);
+
+  return petIcons[key] || petIcons.default;
+};
 
 const SectionAdopt = () => {
   const [petTypes, setPetTypes] = useState<PetType[]>([]);
@@ -58,16 +91,18 @@ const SectionAdopt = () => {
   return (
     <SectionTemplate>
       <Heading text="Meet your new best friend" />
-      <ContainerTemplate>
+      <GridTemplate>
         {petTypes.map((petType) => (
           <CardTemplate 
             key={petType.name}
             linkTo={`/${petType.name.toLowerCase()}`}
             >
-            <div>{petType.name}</div>
+            <Paragraph text={petType.name}></Paragraph>
+            <Image src={getIconPath(petType.name)} alt="pet type icon"></Image>
+            
           </CardTemplate>
         ))}
-      </ContainerTemplate>
+      </GridTemplate>
     </SectionTemplate>
   );
 };

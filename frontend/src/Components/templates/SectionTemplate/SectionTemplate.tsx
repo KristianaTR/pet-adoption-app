@@ -1,19 +1,5 @@
-import styled from "styled-components";
-import { SectionProps } from "./SectionTemplate.types";
-
-const SectionContainer = styled.section`
-  padding: 20px 40px;
-  background-color: var(--background-light);
-  margin-bottom: 20px;
-  padding-top: 90px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-//   &:first-child {
-//     padding-top: 90px;
-//   }
-`;
+import { SectionProps } from './SectionTemplate.types';
+import { SectionContainer } from './SectionTemplate.style';
 
 const SectionTemplate = ({ children }: SectionProps) => {
   return <SectionContainer>{children}</SectionContainer>;
