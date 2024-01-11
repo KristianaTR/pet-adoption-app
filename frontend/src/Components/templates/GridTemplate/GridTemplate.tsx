@@ -1,12 +1,6 @@
-import styled from "styled-components";
-import { GridProps } from "./GridTemplate.types";
+import { GridProps } from './GridTemplate.types';
+import { StyledGridTemplate } from './GridTemplate.style';
 
-const StyledGridTemplate = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(auto-fill, 300px);
-  gap: 20px;
-`;
 
 const GridTemplate = ({children}:GridProps) => {
   return (
