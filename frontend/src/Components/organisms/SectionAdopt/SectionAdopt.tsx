@@ -16,29 +16,24 @@ interface PetIconsType {
 }
 
 const petTypeMappings: { [displayName: string]: string } = {
-  'Small & Furry': 'smallAndFurry',
-  'Scales, Fins & Other': 'scalesFinsAndOther',
+  "Small & Furry": "smallAndFurry",
+  "Scales, Fins & Other": "scalesFinsAndOther",
 };
 
 const petIcons: PetIconsType = {
-  dog: '/Images/icon-dog.png',
-  cat: '/Images/icon-cat.png',
-  rabbit: '/Images/icon-rabbit.png',
-  smallAndFurry: '/Images/icon-small&furry.png',
-  horse: '/Images/icon-horse.png',
-  bird: '/Images/icon-bird.png',
-  scalesFinsAndOther: '/Images/icon-aquarium.png',
-  barnyard: '/Images/icon-farm.png',
-  default: '/Images/icon-paw.png',
-  
-}
+  dog: "/Images/icon-dog.png",
+  cat: "/Images/icon-cat.png",
+  rabbit: "/Images/icon-rabbit.png",
+  smallAndFurry: "/Images/icon-small&furry.png",
+  horse: "/Images/icon-horse.png",
+  bird: "/Images/icon-bird.png",
+  scalesFinsAndOther: "/Images/icon-aquarium.png",
+  barnyard: "/Images/icon-farm.png",
+  default: "/Images/icon-paw.png",
+};
 
 const getIconPath = (displayName: string): string => {
-  const key = petTypeMappings[displayName] || displayName.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
-  console.log(displayName);
-  console.log('Key:', key);
-  console.log('Mapped Key:', petIcons[key]);
-
+  const key = petTypeMappings[displayName] || displayName.toLowerCase();
   return petIcons[key] || petIcons.default;
 };
 
@@ -93,13 +88,12 @@ const SectionAdopt = () => {
       <Heading text="Meet your new best friend" />
       <GridTemplate>
         {petTypes.map((petType) => (
-          <CardTemplate 
+          <CardTemplate
             key={petType.name}
             linkTo={`/${petType.name.toLowerCase()}`}
-            >
+          >
             <Paragraph text={petType.name}></Paragraph>
             <Image src={getIconPath(petType.name)} alt="pet type icon"></Image>
-            
           </CardTemplate>
         ))}
       </GridTemplate>
