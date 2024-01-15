@@ -1,11 +1,11 @@
 import Heading from "@atoms/Heading";
-import Image from "@atoms/Image";
 import Paragraph from "@Components/atoms/Paragraph";
-import CardTemplate from "@Components/templates/CardTemplate";
+import PetCardTemplate from "@Components/templates/PetCardTemplate";
 import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Icon from "@Components/atoms/Icon";
 
 interface dogDataProps {
   name: string;
@@ -82,19 +82,23 @@ const SectionDogs = () => {
       <GridTemplate>
         {dogData &&
           dogData.map((dog) => (
-            <CardTemplate key={dog.name} linkTo={`/${dog.name.toLowerCase()}`}>
-              <Paragraph text={dog.name}/>
+            <PetCardTemplate 
+              key={dog.name} 
+              linkTo={`/${dog.name.toLowerCase()}`}
+              imageUrl={dog.primary_photo_cropped?.medium || avatarImg.src}
+            >
+              <Paragraph text={dog.name} $accent/>
               {dog.gender === "Female" ?
-              (<Image src={genderIcon.female} alt="female icon"/>) :
-              (<Image src={genderIcon.male} alt="male icon"/>)
+              (<Icon src={genderIcon.female} alt="female icon" color="#ffffff"/>) :
+              (<Icon src={genderIcon.male} alt="male icon" color="#ffffff"/>)
               }
-              {dog.primary_photo_cropped?.medium ? 
+              {/* {dog.primary_photo_cropped?.medium ? 
               (
                 <Image src={dog.primary_photo_cropped.medium} alt="dog picture"></Image>
               ) :
               (<Image src={avatarImg.src} alt="avatar"/>)
-            }
-            </CardTemplate>
+            } */}
+            </PetCardTemplate>
           ))}
       </GridTemplate>
     </SectionTemplate>

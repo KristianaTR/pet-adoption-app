@@ -11,8 +11,10 @@ export const CardContainer = styled.section`
   flex-direction: column;
   align-items: center;
   background-color: var(--background-white);
-  max-height: 300px;
-  min-height: 300px;
+//   max-height: 300px;
+//   min-height: 300px;
+    box-sizing:border-box;
+    padding: 24px;
   overflow-y: hidden;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
