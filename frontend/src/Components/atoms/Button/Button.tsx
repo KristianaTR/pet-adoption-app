@@ -4,15 +4,16 @@ import { ButtonProps } from "./Button.types";
 const StyledButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
-  background-color: var(--button-default);
-  color: var(--text-white);
+  background-color: ${({ theme }) => theme.colors.buttonDefault};
+  color: ${({ theme }) => theme.colors.textWhite};
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
 
   &:hover {
-    background-color: var(--button-hover);
-    color: var(--text-dark);
+    background-color: ${({ theme }) => theme.colors.buttonHover};
+    color: ${({ theme }) => theme.colors.textDark};
   }
 
   &:active {

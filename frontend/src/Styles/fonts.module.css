@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url("../Assets/fonts/roboto-regular-webfont.woff2") format("woff2"),
+    url("../Assets/fonts/roboto-regular-webfont.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Roboto Medium"), local("Roboto-Medium"),
+    url("../Assets/fonts/roboto-medium-webfont.woff2") format("woff2"),
+    url("../Assets/fonts/roboto-medium-webfont.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("../Assets/fonts/roboto-bold-webfont.woff2") format("woff2"),
+    url("../Assets/fonts/roboto-bold-webfont.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 900;
+  src: local("Roboto Black"), local("Roboto-Black"),
+    url("../Assets/fonts/roboto-black-webfont.woff2") format("woff2"),
+    url("../Assets/fonts/roboto-black-webfont.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+    font-family: "Shadows Into Light";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Shadows Into Light"), local("Shadows-Into-Light"),
+      url("../Assets/fonts/shadowsintolight-regular-webfont.woff2") format("woff2"),
+      url("../Assets/fonts/shadowsintolight-regular-webfont.woff") format("woff");
+    font-display: swap;
+  }

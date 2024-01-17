@@ -10,5 +10,5 @@ export const Container = styled.section<StyledContainerProps>`
   flex-direction: ${props => props.flexDirection || "row"};
   align-items: center;
   padding: 20px;
-//   background-color: var(--background-white);
+//   background-color: ${({ theme }) => theme.colors.backgroundWhite};
 `;

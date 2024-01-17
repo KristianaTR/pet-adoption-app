@@ -4,8 +4,9 @@ import { ParagraphProps } from "./Paragraph.types";
 const StyledParagraph = styled.p<{ $accent?: boolean }>`
   font-size: 16px;
   line-height: 1.5;
-  color: ${props => (props.$accent ? 'var(--text-white)' : 'var(--text-dark)')};
-  font-family: var(--typography-text-font-family);
+  color: ${({ $accent, theme }) => ($accent ? theme.colors.textWhite : theme.colors.textDark)};
+  font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
+  
 
 `;
 

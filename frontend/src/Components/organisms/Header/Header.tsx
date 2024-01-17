@@ -4,8 +4,8 @@ import NavigationBar from "@Components/molecules/NavigationBar";
 
 const StyledHeader = styled.header`
   position: fixed;
-  background: var(--background-white);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background: ${({ theme }) => theme.colors.backgroundWhite};
+  box-shadow: ${({ theme }) => theme.boxShadow.bottom};
   padding: 20px;
   box-sizing: border-box;
   width: 100%;

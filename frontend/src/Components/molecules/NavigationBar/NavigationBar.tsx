@@ -27,6 +27,7 @@ const NavList = styled.ul`
 
   li {
     list-style: none;
+    font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
 
     &.active {
       font-weight: bold;
@@ -34,7 +35,7 @@ const NavList = styled.ul`
 
     a {
       display: inline-block;
-      color: var(--text-dark);
+      color: ${({ theme }) => theme.colors.textDark};;
       font-size: 20px;
       margin: 0 10px;
       text-decoration: none;
