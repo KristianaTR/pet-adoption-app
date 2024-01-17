@@ -9,7 +9,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.main};
+  font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.buttonHover};
