@@ -10,7 +10,7 @@ export const CardContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--background-white);
+  background-color: ${({ theme }) => theme.colors.backgroundWhite};
 //   max-height: 300px;
 //   min-height: 300px;
     box-sizing:border-box;

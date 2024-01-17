@@ -1,4 +1,5 @@
-import "./App.css";
+// import "./App.css";
+
 import AdoptPage from "@Pages/AdoptPage";
 import HomePage from "@Pages/HomePage";
 import DogPage from "@Pages/DogPage";

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SectionContainer = styled.section`
   padding: 20px 40px;
-  background-color: var(--background-light);
+  background-color: ${({ theme }) => theme.colors.backgroundLight};
   padding-top: 90px;
   display: flex;
   flex-direction: column;

@@ -4,8 +4,8 @@ import { HeadingProps } from './Heading.types';
 const StyledHeading = styled.h1`
   font-size: 28px;
   font-weight: bold;
-  font-family: var(--typography-accent-font-family);
-  color: var(--text-dark);
+  font-family: ${({ theme }) => theme.fonts.accent};
+  color: ${({ theme }) => theme.colors.textDark};
 `;
 
 const Heading = ({text}: HeadingProps) => {
