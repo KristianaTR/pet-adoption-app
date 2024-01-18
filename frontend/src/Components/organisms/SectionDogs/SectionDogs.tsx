@@ -1,11 +1,12 @@
 import Heading from "@atoms/Heading";
 import Paragraph from "@Components/atoms/Paragraph";
 import PetCardTemplate from "@Components/templates/PetCardTemplate";
-import GridTemplate from "@Components/templates/GridTemplate";
+// import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
+import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
 
 interface dogDataProps {
   name: string;
@@ -79,7 +80,7 @@ const SectionDogs = () => {
   return (
     <SectionTemplate>
       <Heading text="Dogs" />
-      <GridTemplate>
+      <PetGridTemplate>
         {dogData &&
           dogData.map((dog) => (
             <PetCardTemplate 
@@ -100,7 +101,7 @@ const SectionDogs = () => {
             } */}
             </PetCardTemplate>
           ))}
-      </GridTemplate>
+      </PetGridTemplate>
     </SectionTemplate>
   );
 };

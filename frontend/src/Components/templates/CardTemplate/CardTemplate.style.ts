@@ -9,19 +9,20 @@ export const StyledLink = styled(Link)`
 export const CardContainer = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.backgroundWhite};
-//   max-height: 300px;
-//   min-height: 300px;
-    box-sizing:border-box;
-    padding: 24px;
+  max-height: 250px;
+  min-height: 250px;
+  box-sizing: border-box;
+  padding: 24px;
   overflow-y: hidden;
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
   // margin: 40px;
   cursor: pointer;
   &:hover {
-    ${({ theme }) => theme.boxShadow.hover};
+    box-shadow: ${({ theme }) => theme.boxShadow.hover};
   }
   &:active {
     transform: scale(0.96);
