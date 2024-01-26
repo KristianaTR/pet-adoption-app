@@ -8,15 +8,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
-import { fetchPetTypes, fetchPetfinderToken} from "@Store/Actions/petsActions";
-
-interface PetType {
-  name: string;
-}
-
-interface PetIconsType {
-  [key: string]: string;
-}
+import { fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
+import { PetIconsType, PetType } from "./SectionAdopt.types";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
@@ -68,7 +61,7 @@ const SectionAdopt = () => {
           // Access token is not available yet, wait for the next render
           return;
         }
-        
+
         const response = await axios.get(`https://api.petfinder.com/v2/types`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
