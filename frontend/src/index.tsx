@@ -5,7 +5,7 @@ import { GlobalStyles } from "./Styles/Global";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "App/store";
+import store from "@Store/store";
 import theme from "Styles/Theme";
 
 const root = ReactDOM.createRoot(

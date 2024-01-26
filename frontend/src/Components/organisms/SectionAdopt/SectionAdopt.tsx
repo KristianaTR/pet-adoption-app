@@ -6,6 +6,9 @@ import SectionTemplate from "@Components/templates/SectionTemplate";
 import Image from "@atoms/Image";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@Store/hooks";
+import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
+import { fetchPetTypes, fetchPetfinderToken} from "@Store/Actions/petsActions";
 
 interface PetType {
   name: string;
@@ -38,50 +41,55 @@ const getIconPath = (displayName: string): string => {
 };
 
 const SectionAdopt = () => {
-  const [petTypes, setPetTypes] = useState<PetType[]>([]);
-  const [accessToken, setAccessToken] = useState("");
+  const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(selectAccessToken);
+  console.log(accessToken);
+  const [petTypes, setPetTypes] = useState<PetType[]>(
+    useAppSelector(selectPetTypes)
+  );
 
   useEffect(() => {
-    const fetchAccessToken = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/get-petfinder-token"
-        );
-        setAccessToken(response.data.accessToken);
-      } catch (error) {
+    // Dispatch the action to fetch Petfinder access token
+    dispatch(fetchPetfinderToken())
+      .then(() => {
+        // Once the access token is obtained, use it to fetch pet types
+        return dispatch(fetchPetTypes());
+      })
+      .catch((error) => {
         console.error("Error fetching Petfinder access token:", error);
-      }
-    };
-
-    fetchAccessToken();
-  }, []);
+      });
+  }, [dispatch]);
 
   useEffect(() => {
+    // Fetch pet data when the access token changes
     const fetchPetData = async () => {
       try {
         if (!accessToken) {
           // Access token is not available yet, wait for the next render
           return;
         }
-
+        
         const response = await axios.get(`https://api.petfinder.com/v2/types`, {
-          // params: {
-          //   // type: "dog",
-          //   page: 1,
-          // },
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log(response.data.types);
+
+        // Update the local state with pet types
         setPetTypes(response.data.types);
-        console.log(petTypes);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
+
     fetchPetData();
   }, [accessToken]);
+
+  console.log(petTypes);
+
+  if (!petTypes) {
+    return <div>Loading...</div>; // or any loading indicator
+  }
 
   return (
     <SectionTemplate>

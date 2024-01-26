@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import petsReducer from './petsSlice';
+import petsReducer from './Reducers/petsReducer';
 
 const store = configureStore({
   reducer: {

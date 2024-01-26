@@ -4,6 +4,7 @@ module.exports = {
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@Store': path.resolve(__dirname, 'src/Store'),
       '@Pages': path.resolve(__dirname, 'src/Pages'),
       '@Components': path.resolve(__dirname, 'src/Components'),
       '@atoms': path.resolve(__dirname, 'src/Components/atoms'),
