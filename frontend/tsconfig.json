@@ -17,13 +17,14 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      // "@/*": ["src/*"],
+      "@/*": ["src/*"],
       "@Components/*": ["./Components/*"],
       "@atoms/*": ["./Components/atoms/*"],
       "@molecules/*": ["./Components/molecules/*"],
       "@organisms/*": ["./Components/organisms/*"],
       "@templates/*": ["./Components/templates/*"],
-      "@Pages/*": ["./Pages/*"]
+      "@Pages/*": ["./Pages/*"],
+      "@Store/*": ["./Store/*"]
     }
   },
   "include": ["src"]

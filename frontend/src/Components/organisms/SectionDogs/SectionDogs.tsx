@@ -7,45 +7,39 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
 import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
-
-interface dogDataProps {
-  name: string;
-  gender: string;
-  primary_photo_cropped: {
-    small: string;
-    medium: string;
-    large: string;
-  }
-}
+import { useAppDispatch, useAppSelector } from "@Store/hooks";
+import { selectAccessToken, selectDogsData } from "@Store/Reducers/petsReducer";
+import { dogDataTypes } from "./SectionDogs.types";
+import { fetchDogsData, fetchPetfinderToken } from "@Store/Actions/petsActions";
 
 const avatarImg = {
-  src:"./Images/dog-paw.svg"
+  src: "./Images/dog-paw.svg",
 };
 
 const genderIcon = {
   female: "./Images/icon-female.svg",
-  male: "./Images/icon-male.svg"
+  male: "./Images/icon-male.svg",
 };
 
-
 const SectionDogs = () => {
-  const [dogData, setDogData] = useState<dogDataProps[]>([]);
-  const [accessToken, setAccessToken] = useState("");
+  const dispatch = useAppDispatch();
+  // const [dogData, setDogData] = useState<dogDataTypes[]>([]);
+  const accessToken = useAppSelector(selectAccessToken);
+  const [dogsData, setDogsData] = useState<dogDataTypes[]>(
+    useAppSelector(selectDogsData)
+  );
 
   useEffect(() => {
-    const fetchAccessToken = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/get-petfinder-token"
-        );
-        setAccessToken(response.data.accessToken);
-      } catch (error) {
+    // Dispatch the action to fetch Petfinder access token
+    dispatch(fetchPetfinderToken())
+      .then(() => {
+        // Once the access token is obtained, use it to fetch pet types
+        return dispatch(fetchDogsData());
+      })
+      .catch((error) => {
         console.error("Error fetching Petfinder access token:", error);
-      }
-    };
-
-    fetchAccessToken();
-  }, []);
+      });
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchPetData = async () => {
@@ -68,8 +62,7 @@ const SectionDogs = () => {
           }
         );
         console.log(response.data.animals);
-        setDogData(response.data.animals);
-        console.log(dogData);
+        setDogsData(response.data.animals);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -77,22 +70,30 @@ const SectionDogs = () => {
     fetchPetData();
   }, [accessToken]);
 
+  console.log(dogsData);
+
   return (
     <SectionTemplate>
       <Heading text="Dogs" />
       <PetGridTemplate>
-        {dogData &&
-          dogData.map((dog) => (
-            <PetCardTemplate 
-              key={dog.name} 
+        {dogsData &&
+          dogsData.map((dog) => (
+            <PetCardTemplate
+              key={dog.name}
               linkTo={`/${dog.name.toLowerCase()}`}
               imageUrl={dog.primary_photo_cropped?.medium || avatarImg.src}
             >
-              <Paragraph text={dog.name} $accent/>
-              {dog.gender === "Female" ?
-              (<Icon src={genderIcon.female} alt="female icon" color="#ffffff"/>) :
-              (<Icon src={genderIcon.male} alt="male icon" color="#ffffff"/>)
-              }
+              <Paragraph text={dog.name} $accent />
+              <Paragraph text={`Age: ${dog.age}`} $accent />
+              {dog.gender === "Female" ? (
+                <Icon
+                  src={genderIcon.female}
+                  alt="female icon"
+                  color="#ffffff"
+                />
+              ) : (
+                <Icon src={genderIcon.male} alt="male icon" color="#ffffff" />
+              )}
               {/* {dog.primary_photo_cropped?.medium ? 
               (
                 <Image src={dog.primary_photo_cropped.medium} alt="dog picture"></Image>
