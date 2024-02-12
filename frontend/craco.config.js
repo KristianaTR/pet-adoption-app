@@ -12,5 +12,15 @@ module.exports = {
       '@organisms': path.resolve(__dirname, 'src/Components/organisms'),
       '@templates': path.resolve(__dirname, 'src/Components/templates'),
     },
+    module: {
+      rules: [
+        {
+          test: /\.svg$/i,
+          issuer: /\.[jt]sx?$/,
+          include: path.resolve(__dirname, 'src/Assets/icons'),
+          use: ["@svgr/webpack"],
+        },
+      ],
+    },
   },
 };

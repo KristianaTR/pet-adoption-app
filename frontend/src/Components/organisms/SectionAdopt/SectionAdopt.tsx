@@ -93,7 +93,7 @@ const SectionAdopt = () => {
             key={petType.name}
             linkTo={`/${petType.name.toLowerCase()}`}
           >
-            <Paragraph text={petType.name} $textAlignCenter></Paragraph>
+            <Paragraph $textAlignCenter>{petType.name}</Paragraph>
             <Image src={getIconPath(petType.name)} alt="pet type icon"></Image>
           </CardTemplate>
         ))}

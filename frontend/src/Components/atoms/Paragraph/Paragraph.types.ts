@@ -1,5 +1,8 @@
+import { ReactNode } from 'react';
+
 export interface ParagraphProps {
-    text: string;
+    $larger?: boolean;
     $accent?: boolean;
     $textAlignCenter?: boolean;
+    children: ReactNode;
 }

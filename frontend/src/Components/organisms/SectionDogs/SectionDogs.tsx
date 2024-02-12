@@ -1,7 +1,6 @@
 import Heading from "@atoms/Heading";
 import Paragraph from "@Components/atoms/Paragraph";
 import PetCardTemplate from "@Components/templates/PetCardTemplate";
-// import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -11,15 +10,11 @@ import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectAccessToken, selectDogsData } from "@Store/Reducers/petsReducer";
 import { dogDataTypes } from "./SectionDogs.types";
 import { fetchDogsData, fetchPetfinderToken } from "@Store/Actions/petsActions";
-
-const avatarImg = {
-  src: "./Images/dog-paw.svg",
-};
-
-const genderIcon = {
-  female: "./Images/icon-female.svg",
-  male: "./Images/icon-male.svg",
-};
+import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
+import { ReactComponent as LikeIcon } from "@/Assets/icons/icon-heart.svg";
+import avatarImg from "@/Assets/icons/dog-paw.svg";
+import { ReactComponent as FemaleIcon } from "@/Assets/icons/icon-female.svg";
+import { ReactComponent as MaleIcon } from "@/Assets/icons/icon-male.svg";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +23,12 @@ const SectionDogs = () => {
   const [dogsData, setDogsData] = useState<dogDataTypes[]>(
     useAppSelector(selectDogsData)
   );
+
+  const handleLikeIconClick = () => {
+    // Add your logic here for handling the LikeIcon click
+    console.log('LikeIcon clicked!');
+    // You can dispatch an action or update state as needed
+  };
 
   useEffect(() => {
     // Dispatch the action to fetch Petfinder access token
@@ -81,25 +82,22 @@ const SectionDogs = () => {
             <PetCardTemplate
               key={dog.name}
               linkTo={`/${dog.name.toLowerCase()}`}
-              imageUrl={dog.primary_photo_cropped?.medium || avatarImg.src}
+              imageUrl={dog.primary_photo_cropped?.medium || avatarImg}
+              icon={
+                <Icon alt="heart icon" color="#ffffff" onClick={handleLikeIconClick}>
+                  <LikeIcon />
+                </Icon>
+              }
             >
-              <Paragraph text={dog.name} $accent />
-              <Paragraph text={`Age: ${dog.age}`} $accent />
-              {dog.gender === "Female" ? (
-                <Icon
-                  src={genderIcon.female}
-                  alt="female icon"
-                  color="#ffffff"
-                />
-              ) : (
-                <Icon src={genderIcon.male} alt="male icon" color="#ffffff" />
-              )}
-              {/* {dog.primary_photo_cropped?.medium ? 
-              (
-                <Image src={dog.primary_photo_cropped.medium} alt="dog picture"></Image>
-              ) :
-              (<Image src={avatarImg.src} alt="avatar"/>)
-            } */}
+              <Paragraph $larger $accent>
+                {dog.name}
+              </Paragraph>
+              <FlexContainer justifyContent="space-between">
+                <Paragraph $accent>{`Age: ${dog.age}`}</Paragraph>
+                <Icon alt="female icon" color="#ffffff">
+                  {dog.gender === "Female" ? <FemaleIcon /> : <MaleIcon />}
+                </Icon>
+              </FlexContainer>
             </PetCardTemplate>
           ))}
       </PetGridTemplate>

@@ -78,22 +78,12 @@ export const CardTextBox = styled.div`
   box-sizing: border-box;
 `;
 
-// export const CardContainer = styled.section`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   background-color: ${({ theme }) => theme.colors.backgroundWhite};
-//   max-height: 300px;
-//   min-height: 300px;
-//   overflow-y: hidden;
-//   border-radius: 8px;
-//   box-shadow: ${({ theme }) => theme.boxShadow.default};
-//   // margin: 40px;
-//   cursor: pointer;
-//   &:hover {
-//     box-shadow: ${({ theme }) => theme.boxShadow.hover};
-//   }
-//   &:active {
-//     transform: scale(0.96);
-//   }
-// `;
+export const CardLikeIcon = styled.div`
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 0px;
+  right: 0px;
+  margin: 16px;
+  box-sizing: border-box;
+`;
