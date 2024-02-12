@@ -10,9 +10,9 @@ export const StyledIcon = styled.svg<IconProps>`
     transition: fill 0.3s ease; // Add a smooth transition
   }
 
-  &:hover {
-    path {
-      fill: ${({ theme }) => theme.colors.accent};
-    }
-  }
+  // &:hover {
+  //   path {
+  //     fill: ${({ theme }) => theme.colors.accent};
+  //   }
+  // }
 `;
