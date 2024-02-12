@@ -1,12 +1,5 @@
-import styled from 'styled-components';
 import { HeadingProps } from './Heading.types';
-
-const StyledHeading = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
-  font-family: ${({ theme }) => theme.fonts.accent}, sans-serif;
-  color: ${({ theme }) => theme.colors.textDark};
-`;
+import { StyledHeading } from './Heading.style';
 
 const Heading = ({text}: HeadingProps) => {
   return (
