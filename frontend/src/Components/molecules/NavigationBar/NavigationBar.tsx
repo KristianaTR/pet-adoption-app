@@ -1,57 +1,8 @@
-import styled from "styled-components";
+import * as Styled from "./NavigationBar.style";
 // import Image from "@atoms/Image";
 import Button from "@Components/atoms/Button";
-// import "./NavigationBar.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
-const NavigationWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-`;
-
-const NavLogo = styled.div`
-  img {
-    height: 40px;
-    width: auto;
-  }
-`;
-
-const NavList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 0;
-
-  li {
-    list-style: none;
-    font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
-
-    &.active {
-      font-weight: bold;
-    }
-
-    a {
-      display: inline-block;
-      color: ${({ theme }) => theme.colors.textDark};;
-      font-size: 20px;
-      margin: 0 10px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  }
-`;
-
-const UserActionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  p {
-    margin-bottom: 4px;
-  }
-`;
 
 const NavigationBar = () => {
   const navigation = [
@@ -61,21 +12,21 @@ const NavigationBar = () => {
   ];
 
   return (
-    <NavigationWrapper>
-      <NavLogo>
+    <Styled.NavigationWrapper>
+      <Styled.NavLogo>
         <img src="/Images/logo.svg" alt="logo-img" />
-      </NavLogo>
-      <NavList>
+      </Styled.NavLogo>
+      <Styled.NavList>
         {navigation.map((item) => (
           <li key={item.name}>
             <CustonLink to={item.path}> {item.name} </CustonLink>
           </li>
         ))}
-      </NavList>
-      <UserActionContainer>
+      </Styled.NavList>
+      <Styled.UserActionContainer>
         <Button text="Sign In"></Button>
-      </UserActionContainer>
-    </NavigationWrapper>
+      </Styled.UserActionContainer>
+    </Styled.NavigationWrapper>
   );
 };
 

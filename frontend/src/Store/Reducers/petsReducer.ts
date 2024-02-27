@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { fetchDogsData, fetchPetfinderToken, fetchPetTypes } from "../Actions/petsActions";
+import { fetchDogsData, fetchPetfinderToken, fetchPetTypes, updateDogsData } from "../Actions/petsActions";
 import { PetType } from "@Components/organisms/SectionAdopt/SectionAdopt.types";
 import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
 
@@ -24,7 +24,11 @@ export const petsSlice = createSlice({
       })
       .addCase(fetchDogsData.fulfilled, (state, action) => {
         state.dogsData = action.payload;
-        // console.log("Dogs data API Response:", action.payload);
+        console.log("Dogs data API Response:", action.payload);
+      })
+      .addCase(updateDogsData, (state, action) => { // Handle the new action
+        state.dogsData = action.payload;
+        console.log("Updated Dogs data API Response:", action.payload);
       })
       .addCase(fetchPetfinderToken.rejected, (state, action) => {
         console.error("Error fetching Petfinder access token:", action.error);
@@ -45,5 +49,4 @@ export const petsSlice = createSlice({
 export const selectAccessToken = (state: RootState) => state.pets.accessToken;
 export const selectPetTypes = (state: RootState) => state.pets.petTypes;
 export const selectDogsData = (state: RootState) => state.pets.dogsData;
-
 export default petsSlice.reducer;

@@ -1,20 +1,15 @@
 import Header from "@Components/organisms/Header"
 import SectionAdopt from "@Components/organisms/SectionAdopt";
 import SectionHero from "@organisms/SectionHero"
-import styled from "styled-components";
-
-const StyledHome = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import PageTemplate from "@Components/templates/PageTemplate";
 
 const HomePage = () => {
   return (
-    <StyledHome>
+    <PageTemplate>
       <Header/>
       <SectionHero/>
       <SectionAdopt/>
-    </StyledHome>
+    </PageTemplate>
   )
 }
 

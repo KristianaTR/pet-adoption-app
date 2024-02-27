@@ -11,7 +11,6 @@ const PetCardTemplate = ({ linkTo, children, imageUrl, icon }: PetCardProps) => 
           <Styled.CardLikeIcon>{icon}</Styled.CardLikeIcon>
           <Styled.CardTextBox>{children}</Styled.CardTextBox>
         </Styled.CardContainer>
-        {/* <Styled.CardContainer>{children}</Styled.CardContainer> */}
       </Styled.StyledLink>
     </Styled.CardWrapper>
   );

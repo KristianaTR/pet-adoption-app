@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { AppDispatch, RootState } from "../store";
 import { selectAccessToken } from "@Store/Reducers/petsReducer";
@@ -75,10 +75,11 @@ dogDataTypes[],
         },
       }
     );
-    return response.data.dogsData;
+    return response.data.animals;
   } catch (error: any) {
     console.error("Error fetching pet types:", error);
     return rejectWithValue(error); // Use rejectWithValue to pass error information
   }
 });
 
+export const updateDogsData = createAction<dogDataTypes[]>("pets/updateDogsData");

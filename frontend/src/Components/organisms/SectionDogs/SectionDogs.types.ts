@@ -7,4 +7,17 @@ export interface dogDataTypes {
     medium: string;
     large: string;
   };
+  photos: {
+    full: string;
+    large: string;
+  }[];
+  breeds: {
+    mixed: boolean;
+    primary: string;
+    secondary: string;
+  };
+  description: string;
+  id: number;
+  size: string;
+  status: string;
 }
