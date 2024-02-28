@@ -10,6 +10,11 @@ import { SectionContainer } from "../SectionTemplate/SectionTemplate.style";
 import avatarImg from "@/Assets/icons/dog-paw.svg";
 import PetDataCard from "@Components/molecules/PetDataCard";
 import iconAge from "@/Assets/icons/icon-age.svg";
+import iconGender from "@/Assets/icons/icon-gender.svg";
+import iconId from "@/Assets/icons/icon-id.svg";
+import iconSize from "@/Assets/icons/icon-size.svg";
+import iconStatus from "@/Assets/icons/icon-status.svg";
+import iconBreed from "@/Assets/icons/icon-breed.svg";
 // import { ReactComponent as iconAge } from "@/Assets/icons/icon-age.svg";
 import Icon from "@Components/atoms/Icon";
 import { ReactNode } from "react";
@@ -57,11 +62,11 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   
   const petDataCardInfo: PetDataCardInfoItem[] = [
     { key: "Age", value: age, icon: iconAge},
-    { key: "Gender", value: gender, icon: iconAge },
-    { key: "ID", value: id, icon: iconAge },
-    { key: "Size", value: size, icon: iconAge },
-    { key: "Status", value: status, icon: iconAge },
-    { key: "Breeds", value: breeds?.primary || "Unknown", icon: iconAge }, 
+    { key: "Gender", value: gender, icon: iconGender },
+    { key: "ID", value: id, icon: iconId },
+    { key: "Size", value: size, icon: iconSize },
+    { key: "Status", value: status, icon: iconStatus },
+    { key: "Breeds", value: breeds?.primary || "Unknown", icon: iconBreed }, 
   ];
 
   console.log(petDataCardInfo)
