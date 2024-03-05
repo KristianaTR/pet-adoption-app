@@ -5,7 +5,7 @@ const Paragraph = ({
   $larger,
   $accent,
   $textAlignCenter,
-  children,
+  text,
 }: ParagraphProps) => {
   return (
     <StyledParagraph
@@ -13,7 +13,7 @@ const Paragraph = ({
       $accent={!!$accent}
       $textAlignCenter={!!$textAlignCenter}
     >
-      {children}
+      {text}
     </StyledParagraph>
   );
 };

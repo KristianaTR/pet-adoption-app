@@ -1,18 +1,13 @@
 import Header from "@Components/organisms/Header";
 import SectionAdopt from "@Components/organisms/SectionAdopt";
-import styled from "styled-components";
-
-const StyledAdoptPage = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import PageTemplate from "@Components/templates/PageTemplate";
 
 const AdoptPage = () => {
   return (
-    <StyledAdoptPage>
+    <PageTemplate>
       <Header/>
       <SectionAdopt/>
-    </StyledAdoptPage>
+    </PageTemplate>
   )
 }
 

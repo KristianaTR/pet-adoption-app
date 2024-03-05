@@ -6,9 +6,9 @@ const DefaultImage = styled.img`
   height: auto;
 `;
 
-const Image = ({ src, alt }: ImageProps) => {
+const Image = ({ src, alt, className }: ImageProps) => {
   return (
-    <DefaultImage src={src} alt={alt} />
+    <DefaultImage src={src} alt={alt} className={className}/>
   )
 }
 

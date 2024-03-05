@@ -1,21 +1,14 @@
 import Header from "@Components/organisms/Header";
 import SectionDogs from "@Components/organisms/SectionDogs";
-import styled from "styled-components";
-
-const StyledDogPage = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
+import PageTemplate from "@Components/templates/PageTemplate";
 
 const DogPage = () => {
   return (
-    <StyledDogPage>
-        <Header></Header>
-        <SectionDogs></SectionDogs>
+    <PageTemplate>
+      <Header></Header>
+      <SectionDogs></SectionDogs>
+    </PageTemplate>
+  );
+};
 
-    </StyledDogPage>
-  )
-}
-
-export default DogPage
+export default DogPage;
