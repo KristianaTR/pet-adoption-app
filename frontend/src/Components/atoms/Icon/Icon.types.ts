@@ -1,10 +1,8 @@
-import { MouseEventHandler, ReactNode } from "react";
+import { SVGProps } from "react";
 
-export interface IconProps {
-  alt?: string;
+export interface IconProps extends SVGProps<SVGSVGElement> {
   width?: string;
   height?: string;
   color?: string;
-  children?: ReactNode;
-  onClick?: MouseEventHandler<SVGElement>;
+  icon: string;
 }

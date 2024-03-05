@@ -21,14 +21,6 @@ export const CardContainer = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadow.default};
 `;
 
-export const PhotoBlock = styled.div`
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  width: 50%;
-`;
-
 export const Img = styled(Image)`
   min-width: 100%;
 `;
@@ -37,8 +29,16 @@ export const DataBlock = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
+  align-items: flex-end;
   width: 50%;
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;
 
 export const DescriptionInfoBox = styled.div`
@@ -51,4 +51,5 @@ export const GeneralInfoBox = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
+  width: 100%;
 `;

@@ -1,15 +1,14 @@
 import { StyledIcon } from "./Icon.style";
 import { IconProps } from "./Icon.types";
 
-const Icon: React.FC<IconProps> = ({ alt, width, height, color, children, onClick }) => {
-  return <StyledIcon 
-    alt={alt} 
+const Icon: React.FC<IconProps> = ({ width, height, color, icon}) => {
+  return <StyledIcon  
     width={width} 
-    height={height} 
+    height={height ?? width} 
     color={color}
-    onClick={onClick}
+    icon={icon}
   >
-    {children}
+    <use xlinkHref={`icons/icons.svg#${icon}`} />
   </StyledIcon>;
 };
 
