@@ -77,13 +77,3 @@ export const CardTextBox = styled.div`
   padding: 16px;
   box-sizing: border-box;
 `;
-
-export const CardLikeIcon = styled.div`
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  top: 0px;
-  right: 0px;
-  margin: 16px;
-  box-sizing: border-box;
-`;

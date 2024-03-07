@@ -30,8 +30,12 @@ export const DataBlock = styled.div`
   display: flex;
   flex-direction: column;
   // justify-content: space-between;
-  align-items: flex-end;
   width: 50%;
+`;
+
+export const FlexContainerBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const FlexContainer = styled.div`

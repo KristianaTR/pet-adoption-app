@@ -29,24 +29,24 @@ const Carousel = ({ children }: CarouselProps) => {
           {activeSlide}
         </CarouselSlides>
         <FlexContainerTemplate justifyContent="center" alignItems="center">
-            <CarouselButton
-                text="&#10218;"
-                onClick={() => {
-                    if (activeSlide) {
-                        setCurrentSlide(
-                        (currentSlide - 1 + activeSlide.length) % activeSlide.length
-                        );
-                    }
-                }}
-            />
-            <CarouselButton
-                text="&#10219;"
-                onClick={() => {
-                    if (activeSlide) {
-                        setCurrentSlide((currentSlide + 1) % activeSlide.length);
-                    }
-                }}
-            />
+          <CarouselButton
+            text="&#10218;"
+            onClick={() => {
+              if (activeSlide) {
+                setCurrentSlide(
+                  (currentSlide - 1 + activeSlide.length) % activeSlide.length
+                );
+              }
+            }}
+          />
+          <CarouselButton
+            text="&#10219;"
+            onClick={() => {
+              if (activeSlide) {
+                setCurrentSlide((currentSlide + 1) % activeSlide.length);
+              }
+            }}
+          />
         </FlexContainerTemplate>
       </CarouselWrapper>
     </>

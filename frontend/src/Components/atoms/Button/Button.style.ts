@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import Image from "../Image";
+import Icon from "../Icon";
+import { pulse } from "../Icon/Icon.style";
+
+
+export const ButtonIcon = styled(Icon)`
+  margin-right: 10px;
+`;
 
 export const StyledButton = styled.button`
   padding: 10px 20px;
@@ -12,10 +18,15 @@ export const StyledButton = styled.button`
   font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
   width: fit-content;
   display: flex;
+  align-items: center;
   
   &:hover {
     background-color: ${({ theme }) => theme.colors.buttonHover};
     color: ${({ theme }) => theme.colors.textDark};
+    ${ButtonIcon} {
+      color: ${({ theme }) => theme.colors.accent};
+      animation: ${pulse} 750ms infinite alternate;
+    }
   }
 
   &:active {
@@ -23,7 +34,3 @@ export const StyledButton = styled.button`
   }
 `;
 
-export const ButtonIcon = styled(Image)`
-  width: 20px;
-  margin-right: 10px;
-`;

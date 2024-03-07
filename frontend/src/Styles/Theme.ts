@@ -11,6 +11,8 @@ const theme: DefaultTheme = {
     accent: "#66574b",
     buttonDefault: " #66574b",
     buttonHover: "#aea69f",
+    iconDefault: "#2d2a2d",
+    iconAccent: "#d02f06",
   },
   fonts: {
     main: "Roboto, sans-serif",

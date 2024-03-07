@@ -1,8 +1,22 @@
-import { SVGProps } from "react";
+import { ComponentPropsWithRef} from "react";
 
-export interface IconProps extends SVGProps<SVGSVGElement> {
+export type IconType = 
+  "paw" |
+  "heart" |
+  "back" |
+  "female" | 
+  "male" | 
+  "age" |
+  "gender" | 
+  "id" | 
+  "size" | 
+  "breed" |
+  "status" ;
+
+export interface IconProps extends ComponentPropsWithRef<'svg'>  {
   width?: string;
   height?: string;
   color?: string;
-  icon: string;
+  className?: string;
+  icon: IconType;
 }
