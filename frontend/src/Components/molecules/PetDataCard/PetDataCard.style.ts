@@ -1,6 +1,15 @@
-import Image from "@Components/atoms/Image";
+import Icon from "@Components/atoms/Icon";
 import Heading from "@Components/atoms/Heading";
 import styled from "styled-components";
+
+export const CardIcon = styled(Icon)`
+  transition: transform 0.2s;
+  color: ${({ theme }) => theme.colors.iconAccent}; !important
+`;
+
+export const CardHeading = styled(Heading)`
+  font-size: ${({ theme }) => theme.fontSize.larger};
+`;
 
 export const CardContainer = styled.div`
   border: 1px solid rgb(236, 236, 243);
@@ -14,14 +23,8 @@ export const CardContainer = styled.div`
   &:hover {
     transform: scale(1.04);
     box-shadow: ${({ theme }) => theme.boxShadow.hover};
+    ${CardIcon} {
+      transform: rotate(45deg);
+    }
   }
-
-`;
-
-export const CardImage = styled(Image)`
-  width: 40px;
-`;
-
-export const CardHeading = styled(Heading)`
-font-size: ${({ theme }) => theme.fontSize.larger};
 `;

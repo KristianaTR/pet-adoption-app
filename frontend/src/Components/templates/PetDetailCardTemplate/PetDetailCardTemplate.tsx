@@ -8,24 +8,17 @@ import { FlexContainer } from "../FlexContainerTemplate/FlexContainerTemplate.st
 import { SectionContainer } from "../SectionTemplate/SectionTemplate.style";
 import avatarImg from "@/Assets/icons/dog-paw.svg";
 import PetDataCard from "@Components/molecules/PetDataCard";
-import iconAge from "@/Assets/icons/icon-age.svg";
-import iconGender from "@/Assets/icons/icon-gender.svg";
-import iconId from "@/Assets/icons/icon-id.svg";
-import iconSize from "@/Assets/icons/icon-size.svg";
-import iconStatus from "@/Assets/icons/icon-status.svg";
-import iconBreed from "@/Assets/icons/icon-breed.svg";
-import iconBack from "@/Assets/icons/icon-back.svg";
-import iconHeart from "@/Assets/icons/icon-heart.svg";
-// import { ReactComponent as iconAge } from "@/Assets/icons/icon-age.svg";
 import Carousel from "@Components/organisms/Carousel";
 import Slide from "@Components/molecules/Slide";
 import Button from "@Components/atoms/Button";
-// import iconGender from "@/Assets/icons/icon-gender.svg";
+import { IconType } from "@Components/atoms/Icon/Icon.types";
+import { useNavigate  } from 'react-router-dom';
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const dogsData = useAppSelector(selectDogsData);
   console.log(dogsData);
-  console.log(iconAge)
+
+  const navigate = useNavigate ();
 
   if (!dogsData) {
     // Handle the case where dogsData is not available yet
@@ -59,19 +52,23 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   interface PetDataCardInfoItem {
     key: string;
     value: string | number;
-    icon: string;
+    icon: IconType;
   }
   
   const petDataCardInfo: PetDataCardInfoItem[] = [
-    { key: "Age", value: age, icon: iconAge},
-    { key: "Gender", value: gender, icon: iconGender },
-    { key: "ID", value: id, icon: iconId },
-    { key: "Size", value: size, icon: iconSize },
-    { key: "Status", value: status, icon: iconStatus },
-    { key: "Breeds", value: breeds?.primary || "Unknown", icon: iconBreed }, 
+    { key: "Age", value: age, icon: "age"},
+    { key: "Gender", value: gender, icon: "gender" },
+    { key: "ID", value: id, icon: "id" },
+    { key: "Size", value: size, icon: "size" },
+    { key: "Status", value: status, icon: "status" },
+    { key: "Breeds", value: breeds?.primary || "Unknown", icon: "breed"}, 
   ];
 
   console.log(petDataCardInfo)
+
+  const handleGoBack = () => {
+    navigate('/dog');
+  }
 
   return (
     <Styled.CardWrapper>
@@ -86,8 +83,10 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
           )}
         </Carousel>
         <Styled.DataBlock>
-          <Button text="Save this pet" icon={iconHeart}/>
-          <Button text="Go back" icon={iconBack}/>
+          <Styled.FlexContainerBtn>
+            <Button text="Go back" icon="back" onClick={handleGoBack} />
+            <Button text="Save this pet" icon="heart"/>
+          </Styled.FlexContainerBtn>
           <Styled.FlexContainer>
             <Styled.DescriptionInfoBox>
               <Heading text={name}></Heading>

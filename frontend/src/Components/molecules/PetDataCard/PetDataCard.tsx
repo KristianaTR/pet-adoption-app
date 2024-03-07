@@ -5,7 +5,7 @@ import { PetDataCardProps } from "./PetDataCard.types";
 const PetDataCard = ({ icon, title, data }: PetDataCardProps) => {
   return (
     <Styled.CardContainer>
-      <Styled.CardImage src={icon} alt="icon" />
+      <Styled.CardIcon icon={icon}/>
       <Styled.CardHeading text={title}/>
       <Paragraph text={data}/>
     </Styled.CardContainer>
