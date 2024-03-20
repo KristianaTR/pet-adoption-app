@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { device } from "Styles/Breakpoints";
+import { deviceMax, deviceMin } from "Styles/Breakpoints";
 interface CardImageProps {
   imageUrl: string;
 }
@@ -17,19 +17,19 @@ export const CardWrapper = styled.div`
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 
-  display: block;
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
+    display: block;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
 
-  @media ${device.tablet} {
+  @media ${deviceMin.mobileL} and ${deviceMax.tablet} {
     display: block;
     -ms-flex: 0 0 33.33333333%;
     flex: 0 0 33.33333333%;
     max-width: 33.33333333%;
   }
 
-  @media ${device.laptop} {
+  @media ${deviceMin.tablet} {
     display: block;
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { ParagraphProps } from "./Paragraph.types";
+import { deviceMax } from "Styles/Breakpoints";
 
-export const StyledParagraph = styled.span<ParagraphProps>`
+export const StyledParagraph = styled.p<ParagraphProps>`
   font-size: ${({ $larger, theme }) =>
     $larger ? theme.fontSize.larger : theme.fontSize.normal};
   line-height: 1.5;
@@ -10,4 +11,8 @@ export const StyledParagraph = styled.span<ParagraphProps>`
   font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
   text-align: ${({ $textAlignCenter }) =>
     $textAlignCenter ? "center" : "initial"};
+
+  @media ${deviceMax.laptop} {
+    font-size: ${({ theme }) => theme.fontSize.small};
+  }
 `;

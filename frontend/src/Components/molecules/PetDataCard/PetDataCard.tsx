@@ -1,4 +1,4 @@
-import Paragraph from "@Components/atoms/Paragraph";
+
 import * as Styled from "./PetDataCard.style";
 import { PetDataCardProps } from "./PetDataCard.types";
 
@@ -7,7 +7,7 @@ const PetDataCard = ({ icon, title, data }: PetDataCardProps) => {
     <Styled.CardContainer>
       <Styled.CardIcon icon={icon}/>
       <Styled.CardHeading text={title}/>
-      <Paragraph text={data}/>
+      <Styled.CardParagraph text={data}/>
     </Styled.CardContainer>
   );
 };

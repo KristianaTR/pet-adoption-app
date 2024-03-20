@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "Styles/Breakpoints";
+import { deviceMax } from "Styles/Breakpoints";
 import Image from "@Components/atoms/Image";
 
 export const CardWrapper = styled.div`
@@ -8,7 +8,7 @@ export const CardWrapper = styled.div`
   padding-top: 100px;
   display: flex;
   box-sizing: border-box;
-  min-height: 100vh;
+  max-height: 100vh;
 `;
 
 export const CardContainer = styled.div`
@@ -19,6 +19,11 @@ export const CardContainer = styled.div`
   display: flex;
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
+
+  @media ${deviceMax.tablet} {
+    margin: 40px 0;
+    flex-flow: column-reverse;
+  }
 `;
 
 export const Img = styled(Image)`
@@ -31,6 +36,9 @@ export const DataBlock = styled.div`
   flex-direction: column;
   // justify-content: space-between;
   width: 50%;
+  @media ${deviceMax.tablet} {
+    width: 100%;
+  }
 `;
 
 export const FlexContainerBtn = styled.div`
@@ -56,4 +64,8 @@ export const GeneralInfoBox = styled.div`
   grid-template-rows: 1fr 1fr;
   gap: 10px;
   width: 100%;
+
+  @media ${deviceMax.tablet} {
+    grid-template: 1fr / repeat(6, 1fr);
+  }
 `;

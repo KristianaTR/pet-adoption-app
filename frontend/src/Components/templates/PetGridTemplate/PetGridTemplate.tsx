@@ -1,10 +1,10 @@
 import { PetGridProps } from './PetGridTemplate.types';
-import { StyledGridTemplate } from './PetGridTemplate.style';
+import { StyledPetGridTemplate } from './PetGridTemplate.style';
 
 
 const PetGridTemplate = ({children}:PetGridProps) => {
   return (
-    <StyledGridTemplate>{children}</StyledGridTemplate>
+    <StyledPetGridTemplate>{children}</StyledPetGridTemplate>
   )
 }
 

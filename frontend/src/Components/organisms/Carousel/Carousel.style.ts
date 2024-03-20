@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { CarouselSlideProps, CarouselProps } from "./Carousel.types";
 import Button from "@Components/atoms/Button";
+import { deviceMax } from "Styles/Breakpoints";
 
 export const CarouselWrapper = styled.div`
   display: flex;
@@ -8,6 +9,11 @@ export const CarouselWrapper = styled.div`
   width: 50%;
   padding: 20px;
   overflow: hidden;
+  justify-content: space-between;
+
+  @media ${deviceMax.tablet} {
+    width: 100%;
+  }
 `;
 
 export const CarouselSlide = styled.div<CarouselSlideProps>`
