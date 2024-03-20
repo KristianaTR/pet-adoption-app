@@ -1,6 +1,8 @@
 import Icon from "@Components/atoms/Icon";
 import Heading from "@Components/atoms/Heading";
+import Paragraph from "@Components/atoms/Paragraph";
 import styled from "styled-components";
+import { deviceMax } from "Styles/Breakpoints";
 
 export const CardIcon = styled(Icon)`
   transition: transform 0.2s;
@@ -9,6 +11,16 @@ export const CardIcon = styled(Icon)`
 
 export const CardHeading = styled(Heading)`
   font-size: ${({ theme }) => theme.fontSize.larger};
+  @media ${deviceMax.laptop} {
+    font-size: ${({ theme }) => theme.fontSize.normal};
+  }
+`;
+
+export const CardParagraph = styled(Paragraph)`
+
+  @media ${deviceMax.tablet} {
+    margin: 0;
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -26,5 +38,9 @@ export const CardContainer = styled.div`
     ${CardIcon} {
       transform: rotate(45deg);
     }
+  }
+
+  @media ${deviceMax.laptop} {
+    padding: 12px;
   }
 `;
