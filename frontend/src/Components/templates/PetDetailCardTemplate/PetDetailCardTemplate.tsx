@@ -13,6 +13,8 @@ import Slide from "@Components/molecules/Slide";
 import Button from "@Components/atoms/Button";
 import { IconType } from "@Components/atoms/Icon/Icon.types";
 import { useNavigate  } from 'react-router-dom';
+import ImageGrid from "@Components/organisms/ImageGrid";
+import ImageGridItem from "@Components/molecules/ImageGridItem";
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const dogsData = useAppSelector(selectDogsData);
@@ -73,15 +75,27 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   return (
     <Styled.CardWrapper>
       <Styled.CardContainer>
-        <Carousel>
-          {photos.length > 0 ? (
-            photos.map((photo, index) => (
-              <Slide key={index} src={photo.full} alt="Dog Image"/>
-            ))
-          ) : (
-            <Slide src={avatarImg} alt="Default Dog Image"/>
-          )}
-        </Carousel>
+        <Styled.GaleryBlock>
+          {/* <Carousel>
+            {photos.length > 0 ? (
+              photos.map((photo, index) => (
+                <Slide key={index} src={photo.full} alt="Dog Image"/>
+              ))
+            ) : (
+              <Slide src={avatarImg} alt="Default Dog Image"/>
+            )}
+          </Carousel> */}
+          <ImageGrid>
+            {photos.length > 0 ? (
+              photos.map((photo, index) => (
+                <ImageGridItem key={index} src={photo.full} alt="Dog Image"/>
+
+              ))
+            ) : (
+              <ImageGridItem src={avatarImg} alt="Default Dog Image"/>
+            )}
+          </ImageGrid>
+        </Styled.GaleryBlock>
         <Styled.DataBlock>
           <Styled.FlexContainerBtn>
             <Button text="Go back" icon="back" onClick={handleGoBack} />
