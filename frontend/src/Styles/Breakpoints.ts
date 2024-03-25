@@ -8,7 +8,7 @@ interface SizeType {
   desktop: string,
 }
 
-const size: SizeType = {
+export const size: SizeType = {
   mobileS: "320px",
   mobileM: "375px",
   mobileL: "425px",

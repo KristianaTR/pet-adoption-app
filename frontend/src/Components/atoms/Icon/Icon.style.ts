@@ -7,17 +7,18 @@ export const StyledIcon = styled.svg<IconProps>`
   height: ${(props) => props.height || "30px"};
   color: ${(props) => props.color || "#2d2a2d"};
   transition: color 0.2s;
-
+  
+  
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
     // transform: scale(1.15);
     // transform: rotate(45deg);
   }
-
-  // @media ${deviceMax.laptop} {
-  //   width: ${(props) => props.width || "20px"};
-  //   height: ${(props) => props.height || "20px"};
-  // }
+  
+  @media ${deviceMax.tablet} {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const pulse = keyframes`

@@ -9,6 +9,10 @@ export const CardWrapper = styled.div`
   display: flex;
   box-sizing: border-box;
   max-height: 100vh;
+
+  @media ${deviceMax.tablet} {
+    max-height: fit-content;
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -28,6 +32,15 @@ export const CardContainer = styled.div`
 
 export const Img = styled(Image)`
   min-width: 100%;
+`;
+
+export const GaleryBlock = styled.div`
+  padding: 20px;
+  display: flex;
+  width: 50%;
+  @media ${deviceMax.tablet} {
+    width: 100%;
+  }
 `;
 
 export const DataBlock = styled.div`
