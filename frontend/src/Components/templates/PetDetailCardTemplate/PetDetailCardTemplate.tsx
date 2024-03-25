@@ -12,15 +12,54 @@ import Carousel from "@Components/organisms/Carousel";
 import Slide from "@Components/molecules/Slide";
 import Button from "@Components/atoms/Button";
 import { IconType } from "@Components/atoms/Icon/Icon.types";
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import ImageGrid from "@Components/organisms/ImageGrid";
 import ImageGridItem from "@Components/molecules/ImageGridItem";
+import { SetStateAction, useState } from "react";
+import Lightbox from "@Components/molecules/Lightbox";
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const dogsData = useAppSelector(selectDogsData);
   console.log(dogsData);
 
-  const navigate = useNavigate ();
+  const [imageToShow, setImageToShow] = useState("");
+  const [lightboxDisplay, setLightBoxDisplay] = useState(false);
+
+  const showImage = (image: string) => {
+    setImageToShow(image);
+    setLightBoxDisplay(true);
+    console.log("click");
+  };
+
+  const hideLightBox = () => {
+    setLightBoxDisplay(false);
+  };
+
+  //show next image in lightbox
+  const showNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    let currentIndex = photos.findIndex((photo) => photo.full === imageToShow);
+    // Ensure photo is found and currentIndex is valid
+    if (currentIndex !== -1 && currentIndex < photos.length - 1) {
+      setImageToShow(photos[currentIndex + 1].full);
+    } else {
+      setLightBoxDisplay(false);
+    }
+  };
+
+  //show previous image in lightbox
+  const showPrev = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    let currentIndex = photos.findIndex((photo) => photo.full === imageToShow);
+    // Ensure photo is found and currentIndex is valid
+    if (currentIndex !== -1 && currentIndex > 0) {
+      setImageToShow(photos[currentIndex - 1].full);
+    } else {
+      setLightBoxDisplay(false);
+    }
+  };
+
+  const navigate = useNavigate();
 
   if (!dogsData) {
     // Handle the case where dogsData is not available yet
@@ -48,7 +87,7 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
     );
   }
   const { photos, name, description } = currentDog;
-  
+
   const { age, gender, id, size, status, breeds } = currentDog;
 
   interface PetDataCardInfoItem {
@@ -56,21 +95,21 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
     value: string | number;
     icon: IconType;
   }
-  
+
   const petDataCardInfo: PetDataCardInfoItem[] = [
-    { key: "Age", value: age, icon: "age"},
+    { key: "Age", value: age, icon: "age" },
     { key: "Gender", value: gender, icon: "gender" },
     { key: "ID", value: id, icon: "id" },
     { key: "Size", value: size, icon: "size" },
     { key: "Status", value: status, icon: "status" },
-    { key: "Breeds", value: breeds?.primary || "Unknown", icon: "breed"}, 
+    { key: "Breeds", value: breeds?.primary || "Unknown", icon: "breed" },
   ];
 
-  console.log(petDataCardInfo)
+  console.log(petDataCardInfo);
 
   const handleGoBack = () => {
-    navigate('/dog');
-  }
+    navigate("/dog");
+  };
 
   return (
     <Styled.CardWrapper>
@@ -88,18 +127,35 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
           <ImageGrid>
             {photos.length > 0 ? (
               photos.map((photo, index) => (
-                <ImageGridItem key={index} src={photo.full} alt="Dog Image"/>
-
+                <ImageGridItem
+                  key={index}
+                  src={photo.full}
+                  alt="Dog Image"
+                  onClick={() => showImage(photo.full)}
+                />
               ))
             ) : (
-              <ImageGridItem src={avatarImg} alt="Default Dog Image"/>
+              <ImageGridItem
+                src={avatarImg}
+                alt="Default Dog Image"
+                onClick={() => showImage(avatarImg)}
+              />
             )}
           </ImageGrid>
+          {lightboxDisplay && (
+            <Lightbox
+              onClick={hideLightBox}
+              onPrevClick={showPrev}
+              onNextClick={showNext}
+              src={imageToShow}
+              alt="Dog Image"
+            />
+          )}
         </Styled.GaleryBlock>
         <Styled.DataBlock>
           <Styled.FlexContainerBtn>
             <Button text="Go back" icon="back" onClick={handleGoBack} />
-            <Button text="Save this pet" icon="heart"/>
+            <Button text="Save this pet" icon="heart" />
           </Styled.FlexContainerBtn>
           <Styled.FlexContainer>
             <Styled.DescriptionInfoBox>
@@ -108,10 +164,12 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
             </Styled.DescriptionInfoBox>
             <Styled.GeneralInfoBox>
               {petDataCardInfo.map((item) => (
-                <PetDataCard 
+                <PetDataCard
                   key={item.key}
                   icon={item.icon}
-                  title={item.key} data={item.value}/>
+                  title={item.key}
+                  data={item.value}
+                />
               ))}
             </Styled.GeneralInfoBox>
           </Styled.FlexContainer>

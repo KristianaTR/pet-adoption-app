@@ -1,7 +1,7 @@
-import * as Styled from "./ModalTemplate.style";
-import { ModalProps } from "./ModalTemplate.types";
+import * as Styled from "./Modal.style";
+import { ModalProps } from "./Modal.types";
 
-const ModalTemplate = ({ showModal, onRequestClose, children }: ModalProps) => {
+const Modal = ({ showModal, onRequestClose, children }: ModalProps) => {
   return (
     <>
       {showModal ? (
@@ -18,4 +18,4 @@ const ModalTemplate = ({ showModal, onRequestClose, children }: ModalProps) => {
   );
 };
 
-export default ModalTemplate;
+export default Modal;

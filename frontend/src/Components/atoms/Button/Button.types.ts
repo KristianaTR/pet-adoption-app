@@ -1,8 +1,9 @@
+import { MouseEventHandler } from "react";
 import { IconProps } from "../Icon/Icon.types";
 
-export interface ButtonProps extends Omit<IconProps, 'icon'>{
+export interface ButtonProps {
     text: string;
     icon?: IconProps['icon'];
-    onClick?: () => void;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
     className?: string;
 }
