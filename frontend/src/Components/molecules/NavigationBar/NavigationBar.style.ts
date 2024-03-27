@@ -1,3 +1,4 @@
+import { size } from "Styles/Breakpoints";
 import styled from "styled-components";
 
 
@@ -6,6 +7,8 @@ export const NavigationWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: ${size.laptop};
+  margin: auto;
 `;
 
 export const NavLogo = styled.div`

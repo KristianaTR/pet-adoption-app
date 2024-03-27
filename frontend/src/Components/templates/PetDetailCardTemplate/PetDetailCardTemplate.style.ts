@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { deviceMax } from "Styles/Breakpoints";
+import { deviceMax, size } from "Styles/Breakpoints";
 import Image from "@Components/atoms/Image";
 
 export const CardWrapper = styled.div`
@@ -20,9 +20,10 @@ export const CardWrapper = styled.div`
 
 export const CardContainer = styled.div`
   width: 100%;
+  max-width: ${size.laptop};
   min-height: 100%;
   box-sizing: border-box;
-  margin: 40px;
+  margin: 40px auto;
   display: flex;
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
