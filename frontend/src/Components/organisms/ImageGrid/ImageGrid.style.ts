@@ -11,7 +11,13 @@ export const GridGalery = styled.div`
     grid-gap: 10px; 
     max-height: 700px; 
     overflow-y: auto;
-
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
     @media ${deviceMax.tablet} {
         max-height: 300px;
         padding: 0;

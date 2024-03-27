@@ -3,15 +3,18 @@ import { deviceMax } from "Styles/Breakpoints";
 import Image from "@Components/atoms/Image";
 
 export const CardWrapper = styled.div`
-  padding: 20px 40px;
+  padding: 100px 40px 20px 40px;
   background-color: ${({ theme }) => theme.colors.backgroundLight};
-  padding-top: 100px;
   display: flex;
   box-sizing: border-box;
   max-height: 100vh;
 
   @media ${deviceMax.tablet} {
     max-height: fit-content;
+  }
+
+  @media ${deviceMax.mobileM} {
+    padding: 100px 20px 20px 20px;
   }
 `;
 
@@ -27,6 +30,10 @@ export const CardContainer = styled.div`
   @media ${deviceMax.tablet} {
     margin: 40px 0;
     flex-flow: column-reverse;
+  }
+
+  @media ${deviceMax.mobileM} {
+    margin-top: 20px;
   }
 `;
 
@@ -78,7 +85,9 @@ export const GeneralInfoBox = styled.div`
   gap: 10px;
   width: 100%;
 
-  @media ${deviceMax.tablet} {
-    grid-template: 1fr / repeat(6, 1fr);
+  @media (max-width: 340px) {
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr;
   }
+
 `;

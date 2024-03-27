@@ -43,4 +43,5 @@ export const CardContainer = styled.div`
   @media ${deviceMax.laptop} {
     padding: 12px;
   }
+
 `;
