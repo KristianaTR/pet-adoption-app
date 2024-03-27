@@ -1,8 +1,12 @@
-import { SectionProps } from './SectionTemplate.types';
-import { SectionContainer } from './SectionTemplate.style';
+import { SectionProps } from "./SectionTemplate.types";
+import { SectionWrapper, SectionContainer } from "./SectionTemplate.style";
 
 const SectionTemplate = ({ children }: SectionProps) => {
-  return <SectionContainer>{children}</SectionContainer>;
+  return (
+    <SectionWrapper>
+      <SectionContainer>{children}</SectionContainer>
+    </SectionWrapper>
+  )
 };
 
 export default SectionTemplate;
