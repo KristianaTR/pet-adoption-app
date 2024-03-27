@@ -143,8 +143,8 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
         </Styled.GaleryBlock>
         <Styled.DataBlock>
           <Styled.FlexContainerBtn>
-            <Button text="Go back" icon="back" onClick={handleGoBack} />
-            <Button text="Save this pet" icon="heart" />
+            <Button text="Go back" variant="common" icon="back" onClick={handleGoBack} />
+            <Button text="Save this pet" variant="common" icon="heart" />
           </Styled.FlexContainerBtn>
           <Styled.FlexContainer>
             <Styled.DescriptionInfoBox>
@@ -155,6 +155,7 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
               {petDataCardInfo.map((item) => (
                 <PetDataCard
                   key={item.key}
+                  variant="petData"
                   icon={item.icon}
                   title={item.key}
                   data={item.value}

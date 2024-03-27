@@ -79,9 +79,9 @@ const SectionDogs = () => {
               <FlexContainer justifyContent="space-between">
                 <Paragraph $accent text={`Age: ${dog.age}`} />
                 {dog.gender === "Female" ? (
-                  <Icon icon="female" color="white" />
+                  <Icon variant="common" icon="female" color="white" />
                 ) : (
-                  <Icon icon="male" color="white" />
+                  <Icon variant="common" icon="male" color="white" />
                 )}
               </FlexContainer>
             </PetCardTemplate>
