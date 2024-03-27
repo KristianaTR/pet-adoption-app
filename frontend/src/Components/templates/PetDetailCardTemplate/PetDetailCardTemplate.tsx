@@ -8,8 +8,6 @@ import { FlexContainer } from "../FlexContainerTemplate/FlexContainerTemplate.st
 import { SectionContainer } from "../SectionTemplate/SectionTemplate.style";
 import avatarImg from "@/Assets/icons/dog-paw.svg";
 import PetDataCard from "@Components/molecules/PetDataCard";
-import Carousel from "@Components/organisms/Carousel";
-import Slide from "@Components/molecules/Slide";
 import Button from "@Components/atoms/Button";
 import { IconType } from "@Components/atoms/Icon/Icon.types";
 import { useNavigate } from "react-router-dom";
@@ -115,15 +113,6 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
     <Styled.CardWrapper>
       <Styled.CardContainer>
         <Styled.GaleryBlock>
-          {/* <Carousel>
-            {photos.length > 0 ? (
-              photos.map((photo, index) => (
-                <Slide key={index} src={photo.full} alt="Dog Image"/>
-              ))
-            ) : (
-              <Slide src={avatarImg} alt="Default Dog Image"/>
-            )}
-          </Carousel> */}
           <ImageGrid>
             {photos.length > 0 ? (
               photos.map((photo, index) => (
