@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef} from "react";
 
-type PetTypeIconT = 
+export type PetTypeIconT = 
   "dog" |
   "cat" | 
   "rabbit" |
@@ -11,7 +11,7 @@ type PetTypeIconT =
   "farm"
 ;
 
-type PetDataIconT = 
+export type PetDataIconT = 
   "age" |
   "gender" | 
   "id" | 
@@ -20,7 +20,7 @@ type PetDataIconT =
   "status" 
 ;
 
-type CommonIconT =  
+export type CommonIconT =  
   "paw" |
   "heart" |
   "back" |
@@ -41,6 +41,6 @@ export interface IconProps extends ComponentPropsWithRef<'svg'>  {
   height?: string;
   color?: string;
   className?: string;
-  icon: IconType;
+  icon: string;
   variant: VariantType;
 }
