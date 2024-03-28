@@ -10,6 +10,7 @@ import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
 import { fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
 import { PetIconsType, PetType } from "./SectionAdopt.types";
 import Icon from "@Components/atoms/Icon";
+import theme from "Styles/Theme";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
@@ -94,7 +95,7 @@ const SectionAdopt = () => {
             linkTo={`/${petType.name.toLowerCase()}`}
           >
             <Paragraph $textAlignCenter text={petType.name}></Paragraph>
-            <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"}/>
+            <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
           </CardTemplate>
         ))}
       </GridTemplate>

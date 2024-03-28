@@ -69,7 +69,7 @@ const SectionDogs = () => {
             <PetCardTemplate
               key={dog.name}
               linkTo={`/${dog.name.toLowerCase()}`}
-              imageUrl={dog.primary_photo_cropped?.medium || avatarImg}
+              imageUrl={dog.primary_photo_cropped?.medium || "/Images/dog-paw.svg"}
             >
               <Paragraph
                 $larger
