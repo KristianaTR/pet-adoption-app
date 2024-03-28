@@ -12,7 +12,7 @@ const theme: DefaultTheme = {
     buttonDefault: " #66574b",
     buttonHover: "#aea69f",
     iconDefault: "#2d2a2d",
-    iconAccent: "#d02f06",
+    iconAccent: "#c27967",
   },
   fonts: {
     main: "Roboto, sans-serif",

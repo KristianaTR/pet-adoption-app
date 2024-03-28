@@ -6,14 +6,13 @@ import Heading from "@Components/atoms/Heading";
 import Paragraph from "@Components/atoms/Paragraph";
 import { FlexContainer } from "../FlexContainerTemplate/FlexContainerTemplate.style";
 import { SectionContainer } from "../SectionTemplate/SectionTemplate.style";
-import avatarImg from "@/Assets/icons/dog-paw.svg";
 import PetDataCard from "@Components/molecules/PetDataCard";
 import Button from "@Components/atoms/Button";
 import { IconType } from "@Components/atoms/Icon/Icon.types";
 import { useNavigate } from "react-router-dom";
 import ImageGrid from "@Components/organisms/ImageGrid";
 import ImageGridItem from "@Components/molecules/ImageGridItem";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import Lightbox from "@Components/molecules/Lightbox";
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
@@ -125,9 +124,9 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
               ))
             ) : (
               <ImageGridItem
-                src={avatarImg}
+                src={"/Images/dog-paw.svg"}
                 alt="Default Dog Image"
-                onClick={() => showImage(avatarImg)}
+                onClick={() => showImage("/Images/dog-paw.svg")}
               />
             )}
           </ImageGrid>
@@ -143,8 +142,8 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
         </Styled.GaleryBlock>
         <Styled.DataBlock>
           <Styled.FlexContainerBtn>
-            <Button text="Go back" icon="back" onClick={handleGoBack} />
-            <Button text="Save this pet" icon="heart" />
+            <Button text="Go back" variant="common" icon="back" onClick={handleGoBack} />
+            <Button text="Save this pet" variant="common" icon="heart" />
           </Styled.FlexContainerBtn>
           <Styled.FlexContainer>
             <Styled.DescriptionInfoBox>
@@ -155,6 +154,7 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
               {petDataCardInfo.map((item) => (
                 <PetDataCard
                   key={item.key}
+                  variant="petData"
                   icon={item.icon}
                   title={item.key}
                   data={item.value}

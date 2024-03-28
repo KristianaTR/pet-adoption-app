@@ -3,32 +3,33 @@ import Paragraph from "@atoms/Paragraph";
 import CardTemplate from "@Components/templates/CardTemplate";
 import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
-import Image from "@atoms/Image";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
 import { fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
 import { PetIconsType, PetType } from "./SectionAdopt.types";
+import Icon from "@Components/atoms/Icon";
+import theme from "Styles/Theme";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
   "Scales, Fins & Other": "scalesFinsAndOther",
 };
 
-const petIcons: PetIconsType = {
-  dog: "/Images/icon-dog.png",
-  cat: "/Images/icon-cat.png",
-  rabbit: "/Images/icon-rabbit.png",
-  smallAndFurry: "/Images/icon-small&furry.png",
-  horse: "/Images/icon-horse.png",
-  bird: "/Images/icon-bird.png",
-  scalesFinsAndOther: "/Images/icon-aquarium.png",
-  barnyard: "/Images/icon-farm.png",
-  default: "/Images/icon-paw.png",
+const petIcons: PetIconsType  = {
+  dog: "dog",
+  cat: "cat",
+  rabbit: "rabbit",
+  smallAndFurry: "smallAndFurry",
+  horse: "horse",
+  bird: "bird",
+  scalesFinsAndOther: "aquarium",
+  barnyard: "farm",
+  default: "paw",
 };
 
-const getIconPath = (displayName: string): string => {
+const getIconName = (displayName: string): string => {
   const key = petTypeMappings[displayName] || displayName.toLowerCase();
   return petIcons[key] || petIcons.default;
 };
@@ -94,7 +95,7 @@ const SectionAdopt = () => {
             linkTo={`/${petType.name.toLowerCase()}`}
           >
             <Paragraph $textAlignCenter text={petType.name}></Paragraph>
-            <Image src={getIconPath(petType.name)} alt="pet type icon"></Image>
+            <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
           </CardTemplate>
         ))}
       </GridTemplate>
