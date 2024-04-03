@@ -1,21 +1,26 @@
-import styled from "styled-components";
-// import { HeaderProps } from "./Header.types";
-import NavigationBar from "@Components/molecules/NavigationBar";
-
-const StyledHeader = styled.header`
-  position: fixed;
-  background: ${({ theme }) => theme.colors.backgroundWhite};
-  box-shadow: ${({ theme }) => theme.boxShadow.bottom};
-  padding: 20px;
-  box-sizing: border-box;
-  width: 100%;
-  z-index: 1000;
-`;
+import { NavigationWrapper, StyledHeader } from "./Header.style";
+import NavBarMobile from "@Components/molecules/NavBarMobile";
+import NavBarDesktop from "@Components/molecules/NavBarDesktop";
+export interface NavigationRoute {
+  name: string;
+  path: string;
+  current: boolean;
+}
 
 const Header = () => {
+
+  const navigationRoutes: NavigationRoute[] = [
+    { name: "Home", path: "/", current: true },
+    { name: "About", path: "/about", current: false },
+    { name: "Adopt", path: "/adopt", current: false },
+  ];
+
   return (
     <StyledHeader>
-      <NavigationBar />
+      <NavigationWrapper>
+        <NavBarDesktop navigationRoutes={navigationRoutes}/>
+        <NavBarMobile navigationRoutes={navigationRoutes} />
+      </NavigationWrapper>
     </StyledHeader>
   );
 };

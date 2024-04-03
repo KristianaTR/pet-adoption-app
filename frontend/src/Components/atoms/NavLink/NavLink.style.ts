@@ -6,7 +6,7 @@ export const Link = styled(RouterLink)`
   color: ${({ theme }) => theme.colors.textDark};
   font-size: ${({ theme }) => theme.fontSize.largest};
   font-weight: bold;
-  margin: 0 10px;
+  margin: 10px;
   cursor: pointer;
   position: relative;
   background-image: linear-gradient(
@@ -21,16 +21,17 @@ export const Link = styled(RouterLink)`
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease-in-out;
 
-  &:before {
-    content: '';
-    background: ${({ theme }) => theme.colors.iconAccent};
-    display: block;
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 3px;
-  }
+  // &:before {
+  //   content: '';
+  //   background: ${({ theme }) => theme.colors.iconAccent};
+  //   display: block;
+  //   position: absolute;
+  //   bottom: -3px;
+  //   left: 0;
+  //   width: 0;
+  //   height: 3px;
+  //   transition: all 0.3s ease-in-out;
+  // }
 
   &:hover {
     background-position: 0;
