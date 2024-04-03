@@ -25,7 +25,8 @@ export type CommonIconT =
   "heart" |
   "back" |
   "female" | 
-  "male"
+  "male" |
+  "login"
 ;
 
 export type IconType = 
