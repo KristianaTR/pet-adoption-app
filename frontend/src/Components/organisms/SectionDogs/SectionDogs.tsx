@@ -12,6 +12,7 @@ import { fetchDogsData, fetchPetfinderToken } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
 import avatarImg from "@/Assets/icons/dog-paw.svg";
 import { SectionContainer } from "@Components/templates/SectionTemplate/SectionTemplate.style";
+import SpinnerLoader from "@Components/atoms/SpinnerLoader";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
@@ -54,9 +55,7 @@ const SectionDogs = () => {
   if (!dogsData) {
     // Handle the case where dogsData is not available yet
     return (
-      <SectionContainer>
-        <FlexContainer>Loading...</FlexContainer>
-      </SectionContainer>
+      <SpinnerLoader/>
     );
   }
 

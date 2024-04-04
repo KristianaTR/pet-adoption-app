@@ -13,6 +13,7 @@ export const SectionContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: 80vh;
   max-width: ${size.laptop};
   margin: auto;
 `;
