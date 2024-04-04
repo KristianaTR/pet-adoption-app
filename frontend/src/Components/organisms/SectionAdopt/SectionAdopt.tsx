@@ -11,6 +11,7 @@ import { fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
 import { PetIconsType, PetType } from "./SectionAdopt.types";
 import Icon from "@Components/atoms/Icon";
 import theme from "Styles/Theme";
+import SpinnerLoader from "@Components/atoms/SpinnerLoader";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
@@ -82,7 +83,7 @@ const SectionAdopt = () => {
   console.log(petTypes);
 
   if (!petTypes) {
-    return <div>Loading...</div>; // or any loading indicator
+    return <SpinnerLoader/>; // or any loading indicator
   }
 
   return (

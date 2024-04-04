@@ -14,6 +14,7 @@ import ImageGrid from "@Components/organisms/ImageGrid";
 import ImageGridItem from "@Components/molecules/ImageGridItem";
 import { useState } from "react";
 import Lightbox from "@Components/molecules/Lightbox";
+import SpinnerLoader from "@Components/atoms/SpinnerLoader";
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const dogsData = useAppSelector(selectDogsData);
@@ -61,9 +62,7 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   if (!dogsData) {
     // Handle the case where dogsData is not available yet
     return (
-      <SectionContainer>
-        <FlexContainer>Loading...</FlexContainer>
-      </SectionContainer>
+      <SpinnerLoader/>
     );
   }
 
