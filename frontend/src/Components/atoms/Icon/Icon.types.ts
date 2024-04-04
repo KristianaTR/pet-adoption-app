@@ -29,13 +29,22 @@ export type CommonIconT =
   "login"
 ;
 
+export type SocialMedia =  
+  "facebook" |
+  "linkedin" |
+  "x" |
+  "instagram" | 
+  "youtube" 
+;
+
 export type IconType = 
   PetTypeIconT |
   PetDataIconT |
-  CommonIconT
+  CommonIconT |
+  SocialMedia
 ;
 
-export type VariantType = "petType" | "petData" | "common";
+export type VariantType = "petType" | "petData" | "common" | "socialMedia";
 
 export interface IconProps extends ComponentPropsWithRef<'svg'>  {
   width?: string;
