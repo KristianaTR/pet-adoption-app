@@ -1,3 +1,4 @@
+import Footer from "@Components/organisms/Footer";
 import Header from "@Components/organisms/Header";
 import PageTemplate from "@Components/templates/PageTemplate";
 import PetDetailCardTemplate from "@Components/templates/PetDetailCardTemplate";
@@ -9,8 +10,9 @@ const PetDetailPage = () => {
   
   return (
     <PageTemplate>
-      <Header></Header>
+      <Header/>
       <PetDetailCardTemplate dogName={dogName}></PetDetailCardTemplate>
+      <Footer/>
     </PageTemplate>
   );
 };
