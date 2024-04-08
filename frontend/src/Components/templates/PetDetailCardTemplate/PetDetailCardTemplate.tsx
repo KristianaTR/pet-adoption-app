@@ -14,10 +14,11 @@ import ImageGrid from "@Components/organisms/ImageGrid";
 import ImageGridItem from "@Components/molecules/ImageGridItem";
 import { useState } from "react";
 import Lightbox from "@Components/molecules/Lightbox";
-import SpinnerLoader from "@Components/atoms/SpinnerLoader";
+import SpinnerLoader from "@Components/molecules/SpinnerLoader";
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const dogsData = useAppSelector(selectDogsData);
+  const navigate = useNavigate();
   console.log(dogsData);
 
   const [imageToShow, setImageToShow] = useState("");
@@ -26,7 +27,6 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const showImage = (image: string) => {
     setImageToShow(image);
     setLightBoxDisplay(true);
-    console.log("click");
   };
 
   const hideLightBox = () => {
@@ -57,17 +57,13 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
     }
   };
 
-  const navigate = useNavigate();
-
   if (!dogsData) {
     // Handle the case where dogsData is not available yet
-    return (
-      <SpinnerLoader/>
-    );
+    return <SpinnerLoader />;
   }
 
   const currentDog = dogsData.find(
-    (dog) => dog.name.toLocaleLowerCase() === dogName.toLocaleLowerCase()
+    (dog) => dog.name?.toLowerCase() === dogName.toLowerCase()
   );
 
   console.log(currentDog);
@@ -82,9 +78,9 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
       </SectionContainer>
     );
   }
-  const { photos, name, description } = currentDog;
 
-  const { age, gender, id, size, status, breeds } = currentDog;
+  const { age, gender, id, size, status, breeds, photos, name, description } =
+    currentDog;
 
   interface PetDataCardInfoItem {
     key: string;
@@ -100,8 +96,6 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
     { key: "Status", value: status, icon: "status" },
     { key: "Breeds", value: breeds?.primary || "Unknown", icon: "breed" },
   ];
-
-  console.log(petDataCardInfo);
 
   const handleGoBack = () => {
     navigate("/dog");
@@ -141,7 +135,12 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
         </Styled.GaleryBlock>
         <Styled.DataBlock>
           <Styled.FlexContainerBtn>
-            <Button text="Go back" variant="common" icon="back" onClick={handleGoBack} />
+            <Button
+              text="Go back"
+              variant="common"
+              icon="back"
+              onClick={handleGoBack}
+            />
             <Button text="Save this pet" variant="common" icon="heart" />
           </Styled.FlexContainerBtn>
           <Styled.FlexContainer>

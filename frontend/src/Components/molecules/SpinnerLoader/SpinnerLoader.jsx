@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import {SpinnerWrapper} from "./SpinnerLoader.style";
-import SectionTemplate from "@Components/templates/SectionTemplate";
+import {SpinnerWrapper, SpinnerContainer} from "./SpinnerLoader.style";
+import Paragraph from "@atoms/Paragraph";
+import Image from "@atoms/Image";
 
 const SpinnerLoader = () => {
 
@@ -17,13 +18,15 @@ const SpinnerLoader = () => {
     }, []);
 
   return (
-    <SectionTemplate>
-        {showImg ? (
-            <img src="/Images/spinner.svg" alt="spinner"/>
-        ) : (
-            <h3>{text}</h3>
-        )}
-    </SectionTemplate>
+    <SpinnerWrapper>
+        <SpinnerContainer>
+            {showImg ? (
+                <Image src="/Images/spinner.svg" alt="spinner"/>
+            ) : (
+                <Paragraph $textAlignCenter text={text}/>
+            )}
+        </SpinnerContainer>
+    </SpinnerWrapper>
   )
 }
 

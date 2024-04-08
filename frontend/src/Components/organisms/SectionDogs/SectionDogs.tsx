@@ -6,64 +6,66 @@ import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
 import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectAccessToken, selectDogsData } from "@Store/Reducers/petsReducer";
+import { selectDogsData } from "@Store/Reducers/petsReducer";
 import { dogDataTypes } from "./SectionDogs.types";
-import { fetchDogsData, fetchPetfinderToken } from "@Store/Actions/petsActions";
+import { fetchDogsData, fetchMoreDogsData, updateDogsData } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
-import avatarImg from "@/Assets/icons/dog-paw.svg";
-import { SectionContainer } from "@Components/templates/SectionTemplate/SectionTemplate.style";
-import SpinnerLoader from "@Components/atoms/SpinnerLoader";
+import SpinnerLoader from "@Components/molecules/SpinnerLoader";
+import Button from "@Components/atoms/Button";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(selectAccessToken);
-  console.log(accessToken);
-  // const [dogsData, setDogsData] = useState<dogDataTypes[]>(
-  //   useAppSelector(selectDogsData)
-  // );
-  const dogsData = useAppSelector(selectDogsData);
-  console.log(dogsData);
-  const [dataFetched, setDataFetched] = useState(false);
-
+  const initialDogsData = useAppSelector(selectDogsData);
+  const [dogsData, setDogsData] = useState<dogDataTypes[]>(initialDogsData);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
-    // If data is already fetched, no need to fetch again
-    if (dataFetched) {
-      return;
-    }
+    // Fetch initial dogs data when component mounts
+    setLoading(true);
+    dispatch(fetchDogsData())
+    .then((action) => {
+      const initialData = action.payload as dogDataTypes[];
+      setDogsData(initialData);
+      dispatch(updateDogsData(initialData));
+      setLoading(false);
+    }).catch((error) => {
+      console.error("Error fetching initial dogs data:", error);
+      setLoading(false);
+    });
+  }, [dispatch]);
 
-    // Dispatch the action to fetch Petfinder access token
-    dispatch(fetchPetfinderToken())
-      .then(() => {
-        // Once the access token is obtained, use it to fetch dog data
-        dispatch(fetchDogsData())
-          .then((dogsDataResponse) => {
-            // Cast payload to the correct type
-            const fetchedDogsData = dogsDataResponse.payload as dogDataTypes[];
-            // setDogsData(fetchedDogsData);
-            setDataFetched(true);
-            console.log(fetchedDogsData);
-          })
-          .catch((error) => {
-            console.error("Error fetching dogs data:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error fetching Petfinder access token:", error);
-      });
-  }, [dataFetched, dispatch]);
+  const handleLoadMore = () => {
+    setLoading(true);
+    setPageNumber((prevPageNumber) => prevPageNumber + 1);
+    console.log("pageNumber:", pageNumber)
+    
+    dispatch(fetchMoreDogsData(pageNumber + 1))
+    .then((action) => {
+      // Access the payload of the PayloadAction
+      const newDogsData = action.payload as dogDataTypes[];
 
-  if (!dogsData) {
-    // Handle the case where dogsData is not available yet
-    return (
-      <SpinnerLoader/>
-    );
-  }
+      // Update Redux store with the new data
+      dispatch(updateDogsData(newDogsData));
+      
+      // Append the new data to the existing data
+      setDogsData((prevDogsData) => [...prevDogsData, ...newDogsData]);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.error("Error fetching more dogs data:", error);
+      setLoading(false);
+    });
+  }; 
+
+  const isLoadMoreButtonVisible = pageNumber < 5;
 
   return (
     <SectionTemplate>
       <Heading text="Dogs" />
+      {(!dogsData || loading) && <SpinnerLoader/>}
       <PetGridTemplate>
-        {dogsData &&
+        {Array.isArray(dogsData) && 
           dogsData.map((dog) => (
             <PetCardTemplate
               key={dog.name}
@@ -86,6 +88,10 @@ const SectionDogs = () => {
             </PetCardTemplate>
           ))}
       </PetGridTemplate>
+      {(!dogsData || loading) && <SpinnerLoader/>}
+      {isLoadMoreButtonVisible && 
+      <Button text="Load more" onClick={handleLoadMore}/>
+      }
     </SectionTemplate>
   );
 };

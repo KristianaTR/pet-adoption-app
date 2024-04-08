@@ -11,7 +11,7 @@ import { fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
 import { PetIconsType, PetType } from "./SectionAdopt.types";
 import Icon from "@Components/atoms/Icon";
 import theme from "Styles/Theme";
-import SpinnerLoader from "@Components/atoms/SpinnerLoader";
+import SpinnerLoader from "@Components/molecules/SpinnerLoader";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
