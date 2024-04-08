@@ -38,52 +38,32 @@ const getIconName = (displayName: string): string => {
 const SectionAdopt = () => {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(selectAccessToken);
-  console.log(accessToken);
   const [petTypes, setPetTypes] = useState<PetType[]>(
     useAppSelector(selectPetTypes)
   );
 
   useEffect(() => {
-    // Dispatch the action to fetch Petfinder access token
-    dispatch(fetchPetfinderToken())
-      .then(() => {
-        // Once the access token is obtained, use it to fetch pet types
-        return dispatch(fetchPetTypes());
-      })
-      .catch((error) => {
-        console.error("Error fetching Petfinder access token:", error);
-      });
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Fetch pet data when the access token changes
-    const fetchPetData = async () => {
-      try {
-        if (!accessToken) {
-          // Access token is not available yet, wait for the next render
-          return;
-        }
-
-        const response = await axios.get(`https://api.petfinder.com/v2/types`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+    if (!accessToken) {
+      // If access token is not available, fetch it
+      dispatch(fetchPetfinderToken())
+        .then(() => {
+          // Once the access token is obtained, use it to fetch pet types
+          dispatch(fetchPetTypes())
+            .then((action) => {
+              setPetTypes(action.payload as PetType[]);
+            })
+            .catch((error) => {
+              console.error("Error fetching pet types:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error fetching Petfinder access token:", error);
         });
-
-        // Update the local state with pet types
-        setPetTypes(response.data.types);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchPetData();
-  }, [accessToken]);
-
-  console.log(petTypes);
+    } 
+  }, [accessToken, dispatch]);
 
   if (!petTypes) {
-    return <SpinnerLoader/>; // or any loading indicator
+    return <SpinnerLoader/>; 
   }
 
   return (
