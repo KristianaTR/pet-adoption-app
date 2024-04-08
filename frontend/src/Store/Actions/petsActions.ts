@@ -22,7 +22,7 @@ export const fetchPetfinderToken = createAsyncThunk<string>(
 );
 
 export const fetchPetTypes = createAsyncThunk<
-PetType[],
+  PetType[],
   void,
   {
     dispatch: AppDispatch;
@@ -56,6 +56,14 @@ dogDataTypes[],
     state: RootState;
   }
 >("pets/fetchDogsData", async (_, { getState, rejectWithValue }) => {
+  const state = getState();
+  const { dataFetched, dogsData } = state.pets;
+
+  if (dataFetched) {
+    // Data already fetched, return it from the state
+    return dogsData;
+  }
+
   try {
     const accessToken = selectAccessToken(getState()); // Use the selector to get the access token
     if (!accessToken) {
@@ -82,4 +90,39 @@ dogDataTypes[],
   }
 });
 
-export const updateDogsData = createAction<dogDataTypes[]>("pets/updateDogsData");
+export const updateDogsData = createAction<dogDataTypes[]>(
+  "pets/updateDogsData"
+);
+
+export const fetchMoreDogsData = createAsyncThunk<
+  dogDataTypes[],
+  number, // Assuming the parameter is the page number
+  {
+    dispatch: AppDispatch;
+    state: RootState;
+  }
+>(
+  "pets/fetchMoreDogsData",
+  async (pageNumber, { getState, rejectWithValue }) => {
+    try {
+      const accessToken = selectAccessToken(getState());
+      if (!accessToken) {
+        console.error("Error fetching Petfinder access token:");
+        return [];
+      }
+      const response = await axios.get(`https://api.petfinder.com/v2/animals`, {
+        params: {
+          type: "dog",
+          page: pageNumber,
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data.animals;
+    } catch (error: any) {
+      console.error("Error fetching more dogs data:", error);
+      return rejectWithValue(error);
+    }
+  }
+);
