@@ -3,7 +3,6 @@ import Paragraph from "@atoms/Paragraph";
 import CardTemplate from "@Components/templates/CardTemplate";
 import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
@@ -12,6 +11,7 @@ import { PetIconsType, PetType } from "./SectionAdopt.types";
 import Icon from "@Components/atoms/Icon";
 import theme from "Styles/Theme";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
+import ErrorBoundary from "@Components/molecules/ErrorBoundary";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
@@ -54,10 +54,12 @@ const SectionAdopt = () => {
             })
             .catch((error) => {
               console.error("Error fetching pet types:", error);
+              throw new Error("Error fetching pet types: " + error);
             });
         })
         .catch((error) => {
           console.error("Error fetching Petfinder access token:", error);
+          throw new Error("Error fetching Petfinder access token: " + error);
         });
     } 
   }, [accessToken, dispatch]);
@@ -66,21 +68,25 @@ const SectionAdopt = () => {
     return <SpinnerLoader/>; 
   }
 
+  console.log(petTypes)
+
   return (
-    <SectionTemplate>
-      <Heading text="Meet your new best friend" />
-      <GridTemplate>
-        {petTypes.map((petType) => (
-          <CardTemplate
-            key={petType.name}
-            linkTo={`/${petType.name.toLowerCase()}`}
-          >
-            <Paragraph $textAlignCenter text={petType.name}></Paragraph>
-            <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
-          </CardTemplate>
-        ))}
-      </GridTemplate>
-    </SectionTemplate>
+    <ErrorBoundary>
+      <SectionTemplate>
+        <Heading text="Meet your new best friend" />
+        <GridTemplate>
+          {petTypes.map((petType) => (
+            <CardTemplate
+              key={petType.name}
+              linkTo={`/${petType.name.toLowerCase()}`}
+            >
+              <Paragraph $textAlignCenter text={petType.name}></Paragraph>
+              <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
+            </CardTemplate>
+          ))}
+        </GridTemplate>
+      </SectionTemplate>
+    </ErrorBoundary>
   );
 };
 
