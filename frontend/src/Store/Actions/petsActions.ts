@@ -41,7 +41,7 @@ export const fetchPetTypes = createAsyncThunk<
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data.petTypes;
+    return response.data.types;
   } catch (error: any) {
     console.error("Error fetching pet types:", error);
     return rejectWithValue(error); // Use rejectWithValue to pass error information

@@ -15,6 +15,8 @@ import ImageGridItem from "@Components/molecules/ImageGridItem";
 import { useState } from "react";
 import Lightbox from "@Components/molecules/Lightbox";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
+import ErrorBoundary from "@Components/molecules/ErrorBoundary";
+import ErrorFallback from "@Components/molecules/ErrorFallback";
 
 const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   const dogsData = useAppSelector(selectDogsData);
@@ -71,11 +73,12 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
 
   if (!currentDog) {
     return (
-      <SectionContainer>
-        <FlexContainer>
-          <Paragraph $larger text="Dog not found" />
-        </FlexContainer>
-      </SectionContainer>
+      // <SectionContainer>
+      //   <FlexContainer>
+      //     <Paragraph $larger text="Dog not found" />
+      //   </FlexContainer>
+      // </SectionContainer>
+      <ErrorFallback/>
     );
   }
 
@@ -102,67 +105,69 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
   };
 
   return (
-    <Styled.CardWrapper>
-      <Styled.CardContainer>
-        <Styled.GaleryBlock>
-          <ImageGrid>
-            {photos.length > 0 ? (
-              photos.map((photo, index) => (
+    <ErrorBoundary>
+      <Styled.CardWrapper>
+        <Styled.CardContainer>
+          <Styled.GaleryBlock>
+            <ImageGrid>
+              {photos.length > 0 ? (
+                photos.map((photo, index) => (
+                  <ImageGridItem
+                    key={index}
+                    src={photo.full}
+                    alt="Dog Image"
+                    onClick={() => showImage(photo.full)}
+                  />
+                ))
+              ) : (
                 <ImageGridItem
-                  key={index}
-                  src={photo.full}
-                  alt="Dog Image"
-                  onClick={() => showImage(photo.full)}
+                  src={"/Images/dog-paw.svg"}
+                  alt="Default Dog Image"
+                  onClick={() => showImage("/Images/dog-paw.svg")}
                 />
-              ))
-            ) : (
-              <ImageGridItem
-                src={"/Images/dog-paw.svg"}
-                alt="Default Dog Image"
-                onClick={() => showImage("/Images/dog-paw.svg")}
+              )}
+            </ImageGrid>
+            {lightboxDisplay && (
+              <Lightbox
+                onClick={hideLightBox}
+                onPrevClick={showPrev}
+                onNextClick={showNext}
+                src={imageToShow}
+                alt="Dog Image"
               />
             )}
-          </ImageGrid>
-          {lightboxDisplay && (
-            <Lightbox
-              onClick={hideLightBox}
-              onPrevClick={showPrev}
-              onNextClick={showNext}
-              src={imageToShow}
-              alt="Dog Image"
-            />
-          )}
-        </Styled.GaleryBlock>
-        <Styled.DataBlock>
-          <Styled.FlexContainerBtn>
-            <Button
-              text="Go back"
-              variant="common"
-              icon="back"
-              onClick={handleGoBack}
-            />
-            <Button text="Save this pet" variant="common" icon="heart" />
-          </Styled.FlexContainerBtn>
-          <Styled.FlexContainer>
-            <Styled.DescriptionInfoBox>
-              <Heading text={name}></Heading>
-              <Paragraph text={description}></Paragraph>
-            </Styled.DescriptionInfoBox>
-            <Styled.GeneralInfoBox>
-              {petDataCardInfo.map((item) => (
-                <PetDataCard
-                  key={item.key}
-                  variant="petData"
-                  icon={item.icon}
-                  title={item.key}
-                  data={item.value}
-                />
-              ))}
-            </Styled.GeneralInfoBox>
-          </Styled.FlexContainer>
-        </Styled.DataBlock>
-      </Styled.CardContainer>
-    </Styled.CardWrapper>
+          </Styled.GaleryBlock>
+          <Styled.DataBlock>
+            <Styled.FlexContainerBtn>
+              <Button
+                text="Go back"
+                variant="common"
+                icon="back"
+                onClick={handleGoBack}
+              />
+              <Button text="Save this pet" variant="common" icon="heart" />
+            </Styled.FlexContainerBtn>
+            <Styled.FlexContainer>
+              <Styled.DescriptionInfoBox>
+                <Heading text={name}></Heading>
+                <Paragraph text={description}></Paragraph>
+              </Styled.DescriptionInfoBox>
+              <Styled.GeneralInfoBox>
+                {petDataCardInfo.map((item) => (
+                  <PetDataCard
+                    key={item.key}
+                    variant="petData"
+                    icon={item.icon}
+                    title={item.key}
+                    data={item.value}
+                  />
+                ))}
+              </Styled.GeneralInfoBox>
+            </Styled.FlexContainer>
+          </Styled.DataBlock>
+        </Styled.CardContainer>
+      </Styled.CardWrapper>
+    </ErrorBoundary>
   );
 };
 

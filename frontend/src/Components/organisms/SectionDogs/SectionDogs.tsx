@@ -12,6 +12,7 @@ import { fetchDogsData, fetchMoreDogsData, updateDogsData } from "@Store/Actions
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
 import Button from "@Components/atoms/Button";
+import ErrorBoundary from "@Components/molecules/ErrorBoundary";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,12 @@ const SectionDogs = () => {
   const [dogsData, setDogsData] = useState<dogDataTypes[]>(initialDogsData);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const handleError = (error: Error) => {
+    console.error("Error:", error);
+    setLoading(false);
+    throw new Error("Error:" + error);
+  };
   
   useEffect(() => {
     // Fetch initial dogs data when component mounts
@@ -29,10 +36,7 @@ const SectionDogs = () => {
       setDogsData(initialData);
       dispatch(updateDogsData(initialData));
       setLoading(false);
-    }).catch((error) => {
-      console.error("Error fetching initial dogs data:", error);
-      setLoading(false);
-    });
+    }).catch(handleError);
   }, [dispatch]);
 
   const handleLoadMore = () => {
@@ -52,47 +56,46 @@ const SectionDogs = () => {
       setDogsData((prevDogsData) => [...prevDogsData, ...newDogsData]);
       setLoading(false);
     })
-    .catch((error) => {
-      console.error("Error fetching more dogs data:", error);
-      setLoading(false);
-    });
+    .catch(handleError);
   }; 
 
   const isLoadMoreButtonVisible = pageNumber < 5;
 
   return (
-    <SectionTemplate>
-      <Heading text="Dogs" />
-      {(!dogsData || loading) && <SpinnerLoader/>}
-      <PetGridTemplate>
-        {Array.isArray(dogsData) && 
-          dogsData.map((dog) => (
-            <PetCardTemplate
-              key={dog.name}
-              linkTo={`/${dog.name.toLowerCase()}`}
-              imageUrl={dog.primary_photo_cropped?.medium || "/Images/dog-paw.svg"}
-            >
-              <Paragraph
-                $larger
-                $accent
-                text={!dog.name ? "No name" : dog.name}
-              />
-              <FlexContainer justifyContent="space-between">
-                <Paragraph $accent text={`Age: ${dog.age}`} />
-                {dog.gender === "Female" ? (
-                  <Icon variant="common" icon="female" color="white" />
-                ) : (
-                  <Icon variant="common" icon="male" color="white" />
-                )}
-              </FlexContainer>
-            </PetCardTemplate>
-          ))}
-      </PetGridTemplate>
-      {(!dogsData || loading) && <SpinnerLoader/>}
-      {isLoadMoreButtonVisible && 
-      <Button text="Load more" onClick={handleLoadMore}/>
-      }
-    </SectionTemplate>
+    <ErrorBoundary>
+      <SectionTemplate>
+        <Heading text="Dogs" />
+        {(!dogsData || loading) && <SpinnerLoader/>}
+        <PetGridTemplate>
+          {Array.isArray(dogsData) && 
+            dogsData.map((dog) => (
+              <PetCardTemplate
+                key={dog.name}
+                linkTo={`/${dog.name.toLowerCase()}`}
+                imageUrl={dog.primary_photo_cropped?.medium || "/Images/dog-paw.svg"}
+              >
+                <Paragraph
+                  $larger
+                  $accent
+                  text={!dog.name ? "No name" : dog.name}
+                />
+                <FlexContainer justifyContent="space-between">
+                  <Paragraph $accent text={`Age: ${dog.age}`} />
+                  {dog.gender === "Female" ? (
+                    <Icon variant="common" icon="female" color="white" />
+                  ) : (
+                    <Icon variant="common" icon="male" color="white" />
+                  )}
+                </FlexContainer>
+              </PetCardTemplate>
+            ))}
+        </PetGridTemplate>
+        {(!dogsData || loading) && <SpinnerLoader/>}
+        {isLoadMoreButtonVisible && 
+        <Button text="Load more" onClick={handleLoadMore}/>
+        }
+      </SectionTemplate>
+    </ErrorBoundary>
   );
 };
 

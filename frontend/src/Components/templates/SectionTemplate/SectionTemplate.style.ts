@@ -2,7 +2,7 @@ import { size } from "Styles/Breakpoints";
 import styled from "styled-components";
 
 export const SectionWrapper = styled.section`
-  padding: 100px 40px;
+  padding: 120px 40px;
   background-color: ${({ theme }) => theme.colors.backgroundLight};
   
 `;

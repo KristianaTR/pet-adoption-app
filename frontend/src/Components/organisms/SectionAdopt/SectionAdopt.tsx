@@ -3,7 +3,6 @@ import Paragraph from "@atoms/Paragraph";
 import CardTemplate from "@Components/templates/CardTemplate";
 import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
@@ -12,6 +11,7 @@ import { PetIconsType, PetType } from "./SectionAdopt.types";
 import Icon from "@Components/atoms/Icon";
 import theme from "Styles/Theme";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
+import ErrorBoundary from "@Components/molecules/ErrorBoundary";
 
 const petTypeMappings: { [displayName: string]: string } = {
   "Small & Furry": "smallAndFurry",
@@ -38,69 +38,55 @@ const getIconName = (displayName: string): string => {
 const SectionAdopt = () => {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(selectAccessToken);
-  console.log(accessToken);
   const [petTypes, setPetTypes] = useState<PetType[]>(
     useAppSelector(selectPetTypes)
   );
 
   useEffect(() => {
-    // Dispatch the action to fetch Petfinder access token
-    dispatch(fetchPetfinderToken())
-      .then(() => {
-        // Once the access token is obtained, use it to fetch pet types
-        return dispatch(fetchPetTypes());
-      })
-      .catch((error) => {
-        console.error("Error fetching Petfinder access token:", error);
-      });
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Fetch pet data when the access token changes
-    const fetchPetData = async () => {
-      try {
-        if (!accessToken) {
-          // Access token is not available yet, wait for the next render
-          return;
-        }
-
-        const response = await axios.get(`https://api.petfinder.com/v2/types`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+    if (!accessToken) {
+      // If access token is not available, fetch it
+      dispatch(fetchPetfinderToken())
+        .then(() => {
+          // Once the access token is obtained, use it to fetch pet types
+          dispatch(fetchPetTypes())
+            .then((action) => {
+              setPetTypes(action.payload as PetType[]);
+            })
+            .catch((error) => {
+              console.error("Error fetching pet types:", error);
+              throw new Error("Error fetching pet types: " + error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error fetching Petfinder access token:", error);
+          throw new Error("Error fetching Petfinder access token: " + error);
         });
-
-        // Update the local state with pet types
-        setPetTypes(response.data.types);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchPetData();
-  }, [accessToken]);
-
-  console.log(petTypes);
+    } 
+  }, [accessToken, dispatch]);
 
   if (!petTypes) {
-    return <SpinnerLoader/>; // or any loading indicator
+    return <SpinnerLoader/>; 
   }
 
+  console.log(petTypes)
+
   return (
-    <SectionTemplate>
-      <Heading text="Meet your new best friend" />
-      <GridTemplate>
-        {petTypes.map((petType) => (
-          <CardTemplate
-            key={petType.name}
-            linkTo={`/${petType.name.toLowerCase()}`}
-          >
-            <Paragraph $textAlignCenter text={petType.name}></Paragraph>
-            <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
-          </CardTemplate>
-        ))}
-      </GridTemplate>
-    </SectionTemplate>
+    <ErrorBoundary>
+      <SectionTemplate>
+        <Heading text="Meet your new best friend" />
+        <GridTemplate>
+          {petTypes.map((petType) => (
+            <CardTemplate
+              key={petType.name}
+              linkTo={`/${petType.name.toLowerCase()}`}
+            >
+              <Paragraph $textAlignCenter text={petType.name}></Paragraph>
+              <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
+            </CardTemplate>
+          ))}
+        </GridTemplate>
+      </SectionTemplate>
+    </ErrorBoundary>
   );
 };
 
