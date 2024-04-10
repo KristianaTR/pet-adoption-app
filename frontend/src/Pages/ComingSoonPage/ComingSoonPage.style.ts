@@ -17,9 +17,9 @@ export const PageContainer = styled.div`
 export const PageHeading = styled(Heading)`
     text-transform: uppercase;
     text-align: center;
-    font-size: 80px;
+    font-size: ${({ theme }) => theme.fontSize.superLarge};
     @media ${deviceMax.mobileL} {
-        font-size: 50px;
+        font-size: ${({ theme }) => theme.fontSize.extraExtraLarge};
     }
 `;
 
@@ -28,6 +28,6 @@ export const PageBtn = styled(Button)`
 `;
 
 export const PageCopyrightNotice = styled(Heading)`
-    font-size: ${({ theme }) => theme.fontSize.larger};
+    font-size: ${({ theme }) => theme.fontSize.large};
 `;
 

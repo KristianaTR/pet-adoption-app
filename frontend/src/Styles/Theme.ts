@@ -28,8 +28,10 @@ const theme: DefaultTheme = {
   fontSize: {
     small: "12px",
     normal: "16px",
-    larger: "22px",
-    largest: "30px"
+    large: "22px",
+    extraLarge: "30px",
+    extraExtraLarge: "50px",
+    superLarge: "80px",
   }
 };
 

@@ -10,14 +10,13 @@ export const CardIcon = styled(Icon)`
 `;
 
 export const CardHeading = styled(Heading)`
-  font-size: ${({ theme }) => theme.fontSize.larger};
+  font-size: ${({ theme }) => theme.fontSize.large};
   @media ${deviceMax.laptop} {
     font-size: ${({ theme }) => theme.fontSize.normal};
   }
 `;
 
 export const CardParagraph = styled(Paragraph)`
-
   @media ${deviceMax.tablet} {
     margin: 0;
   }
@@ -43,5 +42,4 @@ export const CardContainer = styled.div`
   @media ${deviceMax.laptop} {
     padding: 12px;
   }
-
 `;

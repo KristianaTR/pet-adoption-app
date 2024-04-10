@@ -3,8 +3,8 @@ import { ParagraphProps } from "./Paragraph.types";
 import { deviceMax } from "Styles/Breakpoints";
 
 export const StyledParagraph = styled.p<ParagraphProps>`
-  font-size: ${({ $larger, theme }) =>
-    $larger ? theme.fontSize.larger : theme.fontSize.normal};
+  font-size: ${({ $large, theme }) =>
+    $large ? theme.fontSize.large : theme.fontSize.normal};
   line-height: 1.5;
   color: ${({ $accent, theme }) =>
     $accent ? theme.colors.textWhite : theme.colors.textDark};

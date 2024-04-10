@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 export const Link = styled(RouterLink)`
   display: inline-block;
   color: ${({ theme }) => theme.colors.textDark};
-  font-size: ${({ theme }) => theme.fontSize.largest};
+  font-size: ${({ theme }) => theme.fontSize.extraLarge};
   font-weight: bold;
   margin: 10px;
   cursor: pointer;
