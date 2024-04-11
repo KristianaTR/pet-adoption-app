@@ -1,6 +1,7 @@
 import Input from '@Components/atoms/Input'
 import { SearchBarContainer } from './SearchBar.style'
 import Button from '@Components/atoms/Button';
+import SearchInput from '../SeachInput';
 
 const SearchBar = () => {
     const handleSearch = () => {
@@ -9,11 +10,7 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
-        <Input 
-            type='text' 
-            placeholder='Search by pet name or ID'
-            onChange={handleSearch}
-        />
+        <SearchInput />
         <Button text='Clear all'/>
         <Button text='Filter'/>
     </SearchBarContainer>
