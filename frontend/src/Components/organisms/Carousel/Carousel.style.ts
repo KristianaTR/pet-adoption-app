@@ -36,5 +36,4 @@ export const CarouselSlides = styled.div<CarouselProps>`
 export const CarouselButton = styled(Button)`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.textDark};
-
 `;

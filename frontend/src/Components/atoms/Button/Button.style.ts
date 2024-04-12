@@ -37,7 +37,7 @@ export const StyledButton = styled.button`
 
   &:active {
     transform: scale(0.96);
-    font-weight: 600;
+    // font-weight: 600;
   }
 
   @media ${deviceMax.laptop} {

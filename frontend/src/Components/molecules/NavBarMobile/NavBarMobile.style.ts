@@ -1,30 +1,9 @@
 import { Link } from '@Components/atoms/NavLink/NavLink.style';
-import styled, { css, keyframes} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { NavBarMobileProps } from './NavBarMobile.types';
 import { deviceMax } from 'Styles/Breakpoints';
 import Button from '@Components/atoms/Button';
-
-const slideIn = keyframes`
-  from {
-    transform: scale(1.15) translateY(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-`;
-
-const slideOut = keyframes`
-  from {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: scale(1.15) translateY(0);
-    opacity: 0;
-  }
-`;
+import { slideIn, slideOut } from 'Styles/Keyframes';
 
 export const NavBar = styled.div`
   display: none;
