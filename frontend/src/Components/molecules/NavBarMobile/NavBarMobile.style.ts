@@ -31,14 +31,7 @@ export const NavListMobile = styled.ul<NavBarMobileProps>`
   top: 84px;
   right: 0;
   list-style: none;
-
-  animation: ${({ isOpen })  => isOpen ? 
-    css ` ${slideIn} 0.5s ease-in-out forwards` : 
-    css ` ${slideOut} 0.5s ease-in-out forwards` 
-  };
-
- 
-  // animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.5s ease-in-out forwards;
+  animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.5s ease-in-out forwards;
 
 
   li {

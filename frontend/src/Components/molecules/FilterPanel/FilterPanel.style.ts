@@ -4,52 +4,67 @@ import { deviceMax } from "Styles/Breakpoints";
 import { slideIn, slideOut } from "Styles/Keyframes";
 import styled, { css, keyframes } from "styled-components";
 import { FilterPanelProps } from "./FilterPanel.types";
+import { motion } from "framer-motion";
 
-const slideAnimation = keyframes<FilterPanelProps>`
-  0% {
-    transform: translateY(${({ isOpen }) => (isOpen ? '-100%' : '100%')});
-    opacity: 0;
-  }
-  20% {
-    transform: translateY(${({ isOpen }) => (isOpen ? '-20%' : '20%')});
-    opacity: 0.2;
-  }
-  40% {
-    transform: translateY(${({ isOpen }) => (isOpen ? '-40%' : '40%')});
-    opacity: 0.4;
-  }
-  60% {
-    transform: translateY(${({ isOpen }) => (isOpen ? '-60%' : '60%')});
-    opacity: 1;
-  }
-  80% {
-    transform: translateY(${({ isOpen }) => (isOpen ? '-80%' : '80%')});
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-`;
+// const slideAnimation = keyframes<FilterPanelProps>`
+//   0% {
+//     transform: translateY(${({ isOpen }) => (isOpen ? '-100%' : '100%')});
+//     opacity: 0;
+//     height: 0;
+//   }
+//   20% {
+//     transform: translateY(${({ isOpen }) => (isOpen ? '-20%' : '20%')});
+//     opacity: 0.2;
+//     height: 20%;
+//   }
+//   40% {
+//     transform: translateY(${({ isOpen }) => (isOpen ? '-40%' : '40%')});
+//     opacity: 0.4;
+//     height: 40%;
+//   }
+//   60% {
+//     transform: translateY(${({ isOpen }) => (isOpen ? '-60%' : '60%')});
+//     opacity: 1;
+//     height: 60%;
+//   }
+//   80% {
+//     transform: translateY(${({ isOpen }) => (isOpen ? '-80%' : '80%')});
+//     opacity: 1;
+//     height: 80%;
+//   }
+//   100% {
+//     transform: translateY(0%);
+//     opacity: 1;
+//     height: auto;
+//   }
+// `;
 
-export const FilterPanelContainer = styled.div<FilterPanelProps>`
+// export const FilterPanelContainer = styled.div<FilterPanelProps>`
+//   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+//   overflow: hidden;
+//   flex-direction: column;
+//   width: 100%;
+//   align-items: flex-end;
+//   animation: ${({ isOpen }) =>
+//     isOpen
+//       ? css`${slideAnimation} 0.3s ease-in-out forwards`
+//       : 'none'};
+// `;
+
+export const FilterPanelContainer = styled(motion.div)<FilterPanelProps>`
   display: flex;
-  height: ${({ isOpen }) => (isOpen ? "auto" : "0")};
   overflow: hidden;
   flex-direction: column;
   width: 100%;
   align-items: flex-end;
-  animation: ${({ isOpen }) =>
-    isOpen
-      ? css`${slideAnimation} 0.8s ease-in-out forwards`
-      : 'none'};
+
 `;
 
 export const FilterName = styled(Paragraph)`
   font-weight: 500;
 `;
 
-export const FilterItem = styled.div`
+export const FilterItem = styled(motion.div)`
   display: flex;
   width: 80%;
   align-items: center;

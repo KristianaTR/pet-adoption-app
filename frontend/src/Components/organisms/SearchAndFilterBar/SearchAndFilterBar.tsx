@@ -6,8 +6,9 @@ import Button from "@Components/atoms/Button";
 import SearchInput from "../../molecules/SeachInput";
 import FilterPanel from "@Components/molecules/FilterPanel";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
-const SearchAndFilterBar = () => {
+const SearchAndFilterBarC = () => {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
 
   const filterOptions = [
@@ -27,6 +28,7 @@ const SearchAndFilterBar = () => {
 
   const toggleFilterPanel = () => {
     setIsFilterPanelOpen(!isFilterPanelOpen);
+    console.log("isFilterPanelOpen: " + isFilterPanelOpen);
   };
 
   // const handleSearch = () => {
@@ -37,15 +39,21 @@ const SearchAndFilterBar = () => {
     <SearchAndFilterBarContainer>
       <SearchAndFilterBarHeading>
         <SearchInput />
-        {/* {!isFilterPanelOpen && (
-          <Button text="Filter" onClick={toggleFilterPanel} />
-        )} */}
-        <Button text="Filter" onClick={toggleFilterPanel} />
+        <Button
+          text={!isFilterPanelOpen ? "Open filter" : "Close filter"}
+          onClick={toggleFilterPanel}
+        />
       </SearchAndFilterBarHeading>
-      {/* {isFilterPanelOpen && <FilterPanel isOpen={isFilterPanelOpen} filterOptions={filterOptions} />} */}
-      <FilterPanel isOpen={isFilterPanelOpen} filterOptions={filterOptions} />
+      <AnimatePresence initial={false}>
+        {isFilterPanelOpen && (
+          <FilterPanel
+            filterOptions={filterOptions}
+            isOpen={isFilterPanelOpen}
+          />
+        )}
+      </AnimatePresence>
     </SearchAndFilterBarContainer>
   );
 };
 
-export default SearchAndFilterBar;
+export default SearchAndFilterBarC;

@@ -15,4 +15,3 @@ export const SearchAndFilterBarHeading = styled.div`
   justify-content: space-between;
   width: 100%;
 `;
-
