@@ -32,7 +32,7 @@ export const Footer = styled.footer`
   li {
     font-family: ${({ theme }) => theme.fonts.accent}, sans-serif;
     ${Link} {
-        font-size: ${({ theme }) => theme.fontSize.larger};
+        font-size: ${({ theme }) => theme.fontSize.large};
         @media ${deviceMax.mobileL} {
             font-size: ${({ theme }) => theme.fontSize.normal};
         }
@@ -66,5 +66,5 @@ export const SocialMediaIcon = styled(Icon)`
 `;
 
 export const CopyrightNotice = styled(Heading)`
-    font-size: ${({ theme }) => theme.fontSize.normal};
+  font-size: ${({ theme }) => theme.fontSize.normal};
 `;

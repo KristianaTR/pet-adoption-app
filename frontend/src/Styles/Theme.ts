@@ -1,4 +1,5 @@
 import { DefaultTheme } from "styled-components";
+import * as Keyframes from "./Keyframes";
 
 const theme: DefaultTheme = {
   colors: {
@@ -28,9 +29,15 @@ const theme: DefaultTheme = {
   fontSize: {
     small: "12px",
     normal: "16px",
-    larger: "22px",
-    largest: "30px"
-  }
+    large: "22px",
+    extraLarge: "30px",
+    extraExtraLarge: "50px",
+    superLarge: "80px",
+  },
+  animations: {
+    slideIn: Keyframes.slideIn,
+    slideOut: Keyframes.slideOut,
+  },
 };
 
 export default theme;

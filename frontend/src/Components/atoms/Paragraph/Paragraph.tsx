@@ -2,7 +2,7 @@ import { ParagraphProps } from "./Paragraph.types";
 import { StyledParagraph } from "./Paragraph.style";
 
 const Paragraph = ({
-  $larger,
+  $large,
   $accent,
   $textAlignCenter,
   text,
@@ -10,7 +10,7 @@ const Paragraph = ({
 }: ParagraphProps) => {
   return (
     <StyledParagraph
-      $larger={!!$larger}
+      $large={!!$large}
       $accent={!!$accent}
       $textAlignCenter={!!$textAlignCenter}
       className={className}

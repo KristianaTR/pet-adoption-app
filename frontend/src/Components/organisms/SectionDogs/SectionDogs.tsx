@@ -13,6 +13,7 @@ import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexC
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
 import Button from "@Components/atoms/Button";
 import ErrorBoundary from "@Components/molecules/ErrorBoundary";
+import SearchAndFilterBar from "@Components/organisms/SearchAndFilterBar";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
@@ -65,6 +66,7 @@ const SectionDogs = () => {
     <ErrorBoundary>
       <SectionTemplate>
         <Heading text="Dogs" />
+        <SearchAndFilterBar/>
         {(!dogsData || loading) && <SpinnerLoader/>}
         <PetGridTemplate>
           {Array.isArray(dogsData) && 
@@ -75,7 +77,7 @@ const SectionDogs = () => {
                 imageUrl={dog.primary_photo_cropped?.medium || "/Images/dog-paw.svg"}
               >
                 <Paragraph
-                  $larger
+                  $large
                   $accent
                   text={!dog.name ? "No name" : dog.name}
                 />

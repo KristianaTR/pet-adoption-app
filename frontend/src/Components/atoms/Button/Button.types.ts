@@ -1,5 +1,6 @@
 import { MouseEventHandler } from "react";
 import { IconProps } from "../Icon/Icon.types";
+import { HTMLMotionProps } from "framer-motion";
 
 export interface ButtonProps {
     text: string;

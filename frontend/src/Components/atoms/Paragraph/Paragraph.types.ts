@@ -1,5 +1,5 @@
 export interface ParagraphProps {
-    $larger?: boolean;
+    $large?: boolean;
     $accent?: boolean;
     $textAlignCenter?: boolean;
     text?: string | number;

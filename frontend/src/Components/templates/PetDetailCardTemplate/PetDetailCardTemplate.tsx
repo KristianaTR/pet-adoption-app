@@ -75,7 +75,7 @@ const PetDetailCardTemplate = ({ dogName = "" }: PetDetailCardProps) => {
     return (
       // <SectionContainer>
       //   <FlexContainer>
-      //     <Paragraph $larger text="Dog not found" />
+      //     <Paragraph $large text="Dog not found" />
       //   </FlexContainer>
       // </SectionContainer>
       <ErrorFallback/>
