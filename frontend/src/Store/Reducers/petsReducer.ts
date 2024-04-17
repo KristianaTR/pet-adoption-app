@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { fetchDogsData, fetchPetfinderToken, fetchPetTypes, updateDogsData } from "../Actions/petsActions";
+import { fetchAllDogsData, fetchDogsData, fetchPetfinderToken, fetchPetTypes, updateDogsData } from "../Actions/petsActions";
 import { PetType } from "@Components/organisms/SectionAdopt/SectionAdopt.types";
 import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
 
@@ -32,6 +32,10 @@ export const petsSlice = createSlice({
         state.dogsData = action.payload;
         console.log("Updated Dogs data API Response:", action.payload);
       })
+      // .addCase(fetchAllDogsData, (state, action) => {
+      //   state.dogsData = action.payload;
+      //   console.log("All Dogs data API Response:", action.payload);
+      // })
       .addCase(fetchPetfinderToken.rejected, (state, action) => {
         console.error("Error fetching Petfinder access token:", action.error);
         state.accessToken = ""; // Set a default or empty string

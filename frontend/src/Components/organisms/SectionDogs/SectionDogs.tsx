@@ -18,6 +18,7 @@ import SearchAndFilterBar from "@Components/organisms/SearchAndFilterBar";
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
   const initialDogsData = useAppSelector(selectDogsData);
+  console.log(initialDogsData);
   const [dogsData, setDogsData] = useState<dogDataTypes[]>(initialDogsData);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -29,16 +30,20 @@ const SectionDogs = () => {
   };
   
   useEffect(() => {
-    // Fetch initial dogs data when component mounts
-    setLoading(true);
-    dispatch(fetchDogsData())
-    .then((action) => {
-      const initialData = action.payload as dogDataTypes[];
-      setDogsData(initialData);
-      dispatch(updateDogsData(initialData));
-      setLoading(false);
-    }).catch(handleError);
-  }, [dispatch]);
+    if (initialDogsData.length === 0) { // Check if initial dogs data is empty
+      setLoading(true);
+      dispatch(fetchDogsData())
+        .then((action) => {
+          const initialData = action.payload as dogDataTypes[];
+          setDogsData(initialData);
+          dispatch(updateDogsData(initialData));
+          setLoading(false);
+        })
+        .catch(handleError);
+    } else {
+      setLoading(false); // If initial data is available, set loading to false
+    }
+  }, [dispatch, initialDogsData]);
 
   const handleLoadMore = () => {
     setLoading(true);
@@ -66,7 +71,7 @@ const SectionDogs = () => {
     <ErrorBoundary>
       <SectionTemplate>
         <Heading text="Dogs" />
-        <SearchAndFilterBar/>
+        <SearchAndFilterBar />
         {(!dogsData || loading) && <SpinnerLoader/>}
         <PetGridTemplate>
           {Array.isArray(dogsData) && 

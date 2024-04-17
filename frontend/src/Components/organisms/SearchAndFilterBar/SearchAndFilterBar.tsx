@@ -8,7 +8,7 @@ import FilterPanel from "@Components/molecules/FilterPanel";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
-const SearchAndFilterBarC = () => {
+const SearchAndFilterBar = () => {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
 
   const filterOptions = [
@@ -56,4 +56,4 @@ const SearchAndFilterBarC = () => {
   );
 };
 
-export default SearchAndFilterBarC;
+export default SearchAndFilterBar;
