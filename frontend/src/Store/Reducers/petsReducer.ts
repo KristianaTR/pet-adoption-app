@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { fetchAllDogsData, fetchDogsData, fetchPetfinderToken, fetchPetTypes, updateDogsData } from "../Actions/petsActions";
+import {  fetchDogsData, fetchPetfinderToken, fetchPetTypes, updateDogsData } from "../Actions/petsActions";
 import { PetType } from "@Components/organisms/SectionAdopt/SectionAdopt.types";
 import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
 

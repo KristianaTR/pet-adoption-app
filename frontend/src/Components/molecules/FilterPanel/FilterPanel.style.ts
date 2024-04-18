@@ -97,6 +97,10 @@ export const FilterBtn = styled(Button)`
   background-color: ${({ theme }) => theme.colors.backgroundWhite};
   color: ${({ theme }) => theme.colors.textGrey};
   border-radius: 8px;
+  &.active {
+    background-color: ${({ theme }) => theme.colors.buttonHover};
+    color: ${({ theme }) => theme.colors.textDark};
+  }
 
   @media ${deviceMax.mobileL} {
     width: auto;

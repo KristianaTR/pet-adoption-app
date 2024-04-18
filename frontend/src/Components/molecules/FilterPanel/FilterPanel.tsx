@@ -32,7 +32,11 @@ const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
             >
               <FilterBtnContainer>
                 {option.values.map((value) => (
-                  <FilterBtn key={value} text={value} />
+                  <FilterBtn
+                    key={value}
+                    text={value}
+                    // className={isActive && "active"}
+                  />
                 ))}
               </FilterBtnContainer>
               <FilterName text={option.category} />

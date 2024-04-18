@@ -26,7 +26,7 @@ export const TooltipContainer = styled.span`
     font-family: ${({ theme }) => theme.fonts.main}, sans-serif;
     font-size: ${({ theme }) => theme.fontSize.normal};
     padding: 12px 8px;
-    width: 100%;
+    width: fit-content;
     min-width: 100px;
  
     @media ${deviceMax.laptop} {
