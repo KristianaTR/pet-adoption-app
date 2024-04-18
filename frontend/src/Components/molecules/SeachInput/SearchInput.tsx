@@ -8,6 +8,7 @@ import _ from "lodash";
 import { useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
 import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
+import Tooltip from "@atoms/Tooltip";
 
 const SearchInput = () => {
   const dogsData = useAppSelector(selectDogsData);
@@ -65,19 +66,23 @@ const SearchInput = () => {
         onBlur={handleBlur}
       />
       {showFilterBtn ? (
+        <Tooltip tip="Click to search">
           <SearchBtn
             text=""
             icon="search"
             variant="common"
             onClick={handleSearch}
           />
+        </Tooltip>
       ) : (
-        <SearchBtn
-          text=""
-          icon="close"
-          variant="common"
-          onClick={handleClear}
-        />
+        <Tooltip tip="Clear search">
+          <SearchBtn
+            text=""
+            icon="close"
+            variant="common"
+            onClick={handleClear}
+          />
+        </Tooltip>
       )}
     </SearchInputWrapper>
   );

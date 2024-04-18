@@ -1,7 +1,7 @@
 import { TooltipContainer } from './Tooltip.style';
 import { TooltipProps } from "./Tooltip.types";
 
-const MyTooltip = ({ children, tip }: TooltipProps) => {
+const Tooltip = ({ children, tip }: TooltipProps) => {
   return (
     <TooltipContainer>
       {children}
@@ -10,4 +10,4 @@ const MyTooltip = ({ children, tip }: TooltipProps) => {
   );
 };
 
-export default MyTooltip;
+export default Tooltip;
