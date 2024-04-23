@@ -23,9 +23,10 @@ app.get('/get-petfinder-token', async (req, res) => {
     });
 
     const accessToken = response.data.access_token;
+    const expiresIn = response.data.expires_in;
 
-    // Send the access token to the frontend
-    res.json({ accessToken });
+    // Send the access token and expiry time to the frontend
+    res.json({ accessToken, expiresIn });
   } catch (error) {
     console.error('Error fetching Petfinder access token:', error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -7,7 +7,7 @@ import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.type
 export const petsSlice = createSlice({
   name: "pets",
   initialState: {
-    accessToken: "",
+    accessToken: localStorage.getItem("accessToken") || null,
     petTypes: [] as PetType[],
     dogsData: [] as dogDataTypes[],
     dataFetched: false,
