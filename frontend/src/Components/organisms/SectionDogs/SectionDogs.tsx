@@ -80,13 +80,13 @@ const SectionDogs = () => {
               </PetCardTemplate>
             ))}
         </PetGridTemplate>
-        {(!dogsData || loading) && <SpinnerLoader />}
         <Pagination
           petsPerPage={dogsPerPage}
           length={dogsData.length}
           currentPage={currentPage}
           handlePagination={handlePagination}
         />
+        {/* {(!dogsData || loading) && <SpinnerLoader />} */}
       </SectionTemplate>
     </ErrorBoundary>
   );

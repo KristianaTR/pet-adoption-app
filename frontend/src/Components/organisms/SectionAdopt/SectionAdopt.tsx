@@ -18,7 +18,7 @@ const petTypeMappings: { [displayName: string]: string } = {
   "Scales, Fins & Other": "scalesFinsAndOther",
 };
 
-const petIcons: PetIconsType  = {
+const petIcons: PetIconsType = {
   dog: "dog",
   cat: "cat",
   rabbit: "rabbit",
@@ -37,38 +37,27 @@ const getIconName = (displayName: string): string => {
 
 const SectionAdopt = () => {
   const dispatch = useAppDispatch();
-  const accessToken = useAppSelector(selectAccessToken);
-  const [petTypes, setPetTypes] = useState<PetType[]>(
-    useAppSelector(selectPetTypes)
-  );
+  const petTypes = useAppSelector(selectPetTypes);
+  const [loading, setLoading] = useState(false);
+
+  const handleError = (error: Error) => {
+    console.error("Error:", error);
+    setLoading(false);
+    throw new Error("Error:" + error);
+  };
 
   useEffect(() => {
-    if (!accessToken) {
-      // If access token is not available, fetch it
-      dispatch(fetchPetfinderToken())
-        .then(() => {
-          // Once the access token is obtained, use it to fetch pet types
-          dispatch(fetchPetTypes())
-            .then((action) => {
-              setPetTypes(action.payload as PetType[]);
-            })
-            .catch((error) => {
-              console.error("Error fetching pet types:", error);
-              throw new Error("Error fetching pet types: " + error);
-            });
-        })
-        .catch((error) => {
-          console.error("Error fetching Petfinder access token:", error);
-          throw new Error("Error fetching Petfinder access token: " + error);
-        });
-    } 
-  }, [accessToken, dispatch]);
+    if (!petTypes.length) {
+      setLoading(true);
+      dispatch(fetchPetTypes())
+        .then(() => setLoading(false))
+        .catch(handleError);
+    }
+  }, [dispatch, petTypes]);
 
-  if (!petTypes) {
-    return <SpinnerLoader/>; 
+  if (!petTypes || loading) {
+    return <SpinnerLoader />;
   }
-
-  console.log(petTypes)
 
   return (
     <ErrorBoundary>
@@ -81,7 +70,12 @@ const SectionAdopt = () => {
               linkTo={`/${petType.name.toLowerCase()}`}
             >
               <Paragraph $textAlignCenter text={petType.name}></Paragraph>
-              <Icon variant="petType" icon={getIconName(petType.name)} width={"100px"} color={theme.colors.iconAccent}/>
+              <Icon
+                variant="petType"
+                icon={getIconName(petType.name)}
+                width={"100px"}
+                color={theme.colors.iconAccent}
+              />
             </CardTemplate>
           ))}
         </GridTemplate>
