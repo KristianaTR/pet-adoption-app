@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import {  fetchDogsData, fetchPetfinderToken, fetchPetTypes, updateDogsData } from "../Actions/petsActions";
+import {  fetchDogsData, fetchPetfinderToken, fetchPetTypes, setFilteredDogs } from "../Actions/petsActions";
 import { PetType } from "@Components/organisms/SectionAdopt/SectionAdopt.types";
 import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
 
 export const petsSlice = createSlice({
   name: "pets",
   initialState: {
-    accessToken: localStorage.getItem("accessToken") || null,
+    accessToken: "",
     petTypes: [] as PetType[],
     dogsData: [] as dogDataTypes[],
     dataFetched: false,
+    filteredDogs: [] as dogDataTypes[],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -28,8 +29,8 @@ export const petsSlice = createSlice({
         state.dataFetched = true;
         console.log("Dogs data API Response:", action.payload);
       })
-      .addCase(updateDogsData, (state, action) => { // Handle the new action
-        state.dogsData = action.payload;
+      .addCase(setFilteredDogs, (state, action) => { 
+        state.filteredDogs = action.payload;
         console.log("Updated Dogs data API Response:", action.payload);
       })
       // .addCase(fetchAllDogsData, (state, action) => {
@@ -67,4 +68,5 @@ export const selectAccessToken = (state: RootState) => state.pets.accessToken;
 export const selectPetTypes = (state: RootState) => state.pets.petTypes;
 export const selectDogsData = (state: RootState) => state.pets.dogsData;
 export const selectDataFetched = (state: RootState) => state.pets.dataFetched;
+export const selectFilteredDogs  = (state: RootState) => state.pets.filteredDogs;
 export default petsSlice.reducer;

@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   SearchBtn,
   SearchInputStyled,
   SearchInputWrapper,
 } from "./SearchInput.style";
 import _ from "lodash";
-import { useAppSelector } from "@Store/hooks";
+import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
 import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
 import Tooltip from "@atoms/Tooltip";
+import { setFilteredDogs } from "@Store/Actions/petsActions";
 
 const SearchInput = () => {
+  const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPets, setFilteredPets] = useState<dogDataTypes[]>([]);
   const [showFilterBtn, setShowFilterBtn] = useState(true);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   // const debouncedSearch = _.debounce((term: string) => {
   //   // Your search logic (e.g., API call) goes here
@@ -32,7 +41,7 @@ const SearchInput = () => {
       pet.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    setFilteredPets(filteredItems);
+    dispatch(setFilteredDogs(filteredItems));
     setShowFilterBtn(false);
   };
 
@@ -41,6 +50,7 @@ const SearchInput = () => {
   }, [filteredPets]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("Enter is pressed!");
     if (event.key === "Enter") {
       handleSearch();
     }
@@ -52,6 +62,8 @@ const SearchInput = () => {
 
   const handleClear = () => {
     setFilteredPets([]);
+    dispatch(setFilteredDogs([]));
+    setSearchTerm("");
     setShowFilterBtn(true);
   };
 
@@ -62,7 +74,7 @@ const SearchInput = () => {
         placeholder="Search by pet name or ID"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyPress={handleKeyPress}
+        onKeyPress={(event) => handleKeyPress(event)}
         onBlur={handleBlur}
       />
       {showFilterBtn ? (

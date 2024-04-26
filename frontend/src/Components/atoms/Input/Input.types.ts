@@ -1,4 +1,5 @@
 export interface InputProps {
+    // ref?: (element: HTMLInputElement | null) => void;
     type: string;
     placeholder?: string;
     value: string;

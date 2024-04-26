@@ -5,8 +5,8 @@ import GridTemplate from "@Components/templates/GridTemplate";
 import SectionTemplate from "@Components/templates/SectionTemplate";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectPetTypes, selectAccessToken } from "@Store/Reducers/petsReducer";
-import { fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
+import { selectPetTypes, selectAccessToken, selectDogsData } from "@Store/Reducers/petsReducer";
+import { fetchDogsData, fetchPetTypes, fetchPetfinderToken } from "@Store/Actions/petsActions";
 import { PetIconsType, PetType } from "./SectionAdopt.types";
 import Icon from "@Components/atoms/Icon";
 import theme from "Styles/Theme";
@@ -37,7 +37,12 @@ const getIconName = (displayName: string): string => {
 
 const SectionAdopt = () => {
   const dispatch = useAppDispatch();
-  const petTypes = useAppSelector(selectPetTypes);
+  const accessToken = useAppSelector(selectAccessToken);
+  console.log(accessToken)
+  // const petTypes = useAppSelector(selectPetTypes);
+  const [petTypes, setPetTypes] = useState(useAppSelector(selectPetTypes))
+  console.log(petTypes)
+  
   const [loading, setLoading] = useState(false);
 
   const handleError = (error: Error) => {
@@ -46,14 +51,34 @@ const SectionAdopt = () => {
     throw new Error("Error:" + error);
   };
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   dispatch(fetchPetTypes())
+  //     .then(() => setLoading(false))
+  //     .catch(handleError);
+  // }, [dispatch]);
+
   useEffect(() => {
-    if (!petTypes.length) {
-      setLoading(true);
-      dispatch(fetchPetTypes())
-        .then(() => setLoading(false))
-        .catch(handleError);
-    }
-  }, [dispatch, petTypes]);
+    if (!accessToken) {
+      // If access token is not available, fetch it
+      dispatch(fetchPetfinderToken())
+        .then(() => {
+          // Once the access token is obtained, use it to fetch pet types
+          dispatch(fetchPetTypes())
+            .then((action) => {
+              setPetTypes(action.payload as PetType[]);
+            })
+            .catch((error) => {
+              console.error("Error fetching pet types:", error);
+              throw new Error("Error fetching pet types: " + error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error fetching Petfinder access token:", error);
+          throw new Error("Error fetching Petfinder access token: " + error);
+        });
+    } 
+  }, [accessToken, dispatch]);
 
   if (!petTypes || loading) {
     return <SpinnerLoader />;

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
 import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectDogsData } from "@Store/Reducers/petsReducer";
+import { selectDogsData, selectFilteredDogs } from "@Store/Reducers/petsReducer";
 import { fetchDogsData } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
@@ -18,6 +18,7 @@ const SectionDogs = () => {
   const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   console.log(dogsData);
+  const filteredPets = useAppSelector(selectFilteredDogs);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 20;
@@ -45,7 +46,7 @@ const SectionDogs = () => {
 
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = dogsData.slice(indexOfFirstDog, indexOfLastDog);
+  const currentDogs = filteredPets.length ? filteredPets : dogsData.slice(indexOfFirstDog, indexOfLastDog);
   console.log("currentDogs " + currentDogs.length);
 
   return (
