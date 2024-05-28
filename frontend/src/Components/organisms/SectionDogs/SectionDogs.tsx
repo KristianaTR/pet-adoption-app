@@ -6,7 +6,10 @@ import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
 import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectDogsData, selectFilteredDogs } from "@Store/Reducers/petsReducer";
+import {
+  selectDogsData,
+  selectFilteredDogs,
+} from "@Store/Reducers/petsReducer";
 import { fetchDogsData } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
@@ -46,7 +49,9 @@ const SectionDogs = () => {
 
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = filteredPets.length ? filteredPets : dogsData.slice(indexOfFirstDog, indexOfLastDog);
+  const currentDogs = filteredPets.length
+    ? filteredPets
+    : dogsData.slice(indexOfFirstDog, indexOfLastDog);
   console.log("currentDogs " + currentDogs.length);
 
   return (
@@ -81,12 +86,14 @@ const SectionDogs = () => {
               </PetCardTemplate>
             ))}
         </PetGridTemplate>
-        <Pagination
-          petsPerPage={dogsPerPage}
-          length={dogsData.length}
-          currentPage={currentPage}
-          handlePagination={handlePagination}
-        />
+        {!filteredPets.length && (
+          <Pagination
+            petsPerPage={dogsPerPage}
+            length={dogsData.length}
+            currentPage={currentPage}
+            handlePagination={handlePagination}
+          />
+        )}
         {/* {(!dogsData || loading) && <SpinnerLoader />} */}
       </SectionTemplate>
     </ErrorBoundary>
