@@ -7,7 +7,6 @@ import {
 import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
-import { dogDataTypes } from "@Components/organisms/SectionDogs/SectionDogs.types";
 import Tooltip from "@atoms/Tooltip";
 import { setFilteredDogs } from "@Store/Actions/petsActions";
 
@@ -15,15 +14,7 @@ const SearchInput = () => {
   const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredPets, setFilteredPets] = useState<dogDataTypes[]>([]);
   const [showFilterBtn, setShowFilterBtn] = useState(true);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   // const debouncedSearch = _.debounce((term: string) => {
   //   // Your search logic (e.g., API call) goes here
@@ -31,37 +22,26 @@ const SearchInput = () => {
   //   console.log(`Searching for: ${term}`);
   // }, 4000);
 
-  // event: React.ChangeEvent<HTMLInputElement> in case of input change
-  // event: React.MouseEvent<HTMLButtonElement> in case of button click
   const handleSearch = () => {
     // debouncedSearch(value);
-    setFilteredPets([]);
     console.log("Searching: " + searchTerm);
     const filteredItems = dogsData.filter((pet) =>
       pet.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
+    console.log(filteredItems);
     dispatch(setFilteredDogs(filteredItems));
     setShowFilterBtn(false);
   };
 
-  useEffect(() => {
-    console.log(filteredPets);
-  }, [filteredPets]);
-
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     console.log("Enter is pressed!");
     if (event.key === "Enter") {
+      console.log("Enter is pressed!");
       handleSearch();
     }
   };
 
-  const handleBlur = () => {
-    handleSearch();
-  };
-
   const handleClear = () => {
-    setFilteredPets([]);
     dispatch(setFilteredDogs([]));
     setSearchTerm("");
     setShowFilterBtn(true);
@@ -75,7 +55,6 @@ const SearchInput = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyPress={(event) => handleKeyPress(event)}
-        onBlur={handleBlur}
       />
       {showFilterBtn ? (
         <Tooltip tip="Click to search">
