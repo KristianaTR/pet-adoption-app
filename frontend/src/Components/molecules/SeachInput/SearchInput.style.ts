@@ -7,6 +7,7 @@ export const SearchInputWrapper = styled.div`
   display: flex;
   background-color: ${({ theme }) => theme.colors.backgroundWhite};
   border-radius: 4px;
+  align-items: center;
 `;
 
 export const SearchInputStyled = styled(Input)`

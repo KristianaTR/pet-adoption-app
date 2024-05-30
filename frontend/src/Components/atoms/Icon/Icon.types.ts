@@ -26,7 +26,9 @@ export type CommonIconT =
   "back" |
   "female" | 
   "male" |
-  "login"
+  "login" |
+  "search" |
+  "close"
 ;
 
 export type SocialMedia =  

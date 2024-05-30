@@ -6,75 +6,69 @@ import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
 import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectDogsData } from "@Store/Reducers/petsReducer";
-import { dogDataTypes } from "./SectionDogs.types";
-import { fetchDogsData, fetchMoreDogsData, updateDogsData } from "@Store/Actions/petsActions";
+import {
+  selectDogsData,
+  selectFilteredDogs,
+} from "@Store/Reducers/petsReducer";
+import { fetchDogsData } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
 import SpinnerLoader from "@Components/molecules/SpinnerLoader";
-import Button from "@Components/atoms/Button";
 import ErrorBoundary from "@Components/molecules/ErrorBoundary";
 import SearchAndFilterBar from "@Components/organisms/SearchAndFilterBar";
+import Pagination from "@Components/molecules/Pagination";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
-  const initialDogsData = useAppSelector(selectDogsData);
-  const [dogsData, setDogsData] = useState<dogDataTypes[]>(initialDogsData);
-  const [pageNumber, setPageNumber] = useState(1);
+  const dogsData = useAppSelector(selectDogsData);
+  console.log(dogsData);
+  const filteredPets = useAppSelector(selectFilteredDogs);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const dogsPerPage = 20;
 
   const handleError = (error: Error) => {
     console.error("Error:", error);
     setLoading(false);
     throw new Error("Error:" + error);
   };
-  
+
   useEffect(() => {
-    // Fetch initial dogs data when component mounts
-    setLoading(true);
-    dispatch(fetchDogsData())
-    .then((action) => {
-      const initialData = action.payload as dogDataTypes[];
-      setDogsData(initialData);
-      dispatch(updateDogsData(initialData));
-      setLoading(false);
-    }).catch(handleError);
-  }, [dispatch]);
+    // Check if dogsData is already available
+    if (!dogsData.length) {
+      setLoading(true);
+      dispatch(fetchDogsData())
+        .then(() => setLoading(false))
+        .catch(handleError);
+    }
+  }, [dispatch, dogsData]);
 
-  const handleLoadMore = () => {
-    setLoading(true);
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
-    console.log("pageNumber:", pageNumber)
-    
-    dispatch(fetchMoreDogsData(pageNumber + 1))
-    .then((action) => {
-      // Access the payload of the PayloadAction
-      const newDogsData = action.payload as dogDataTypes[];
+  const handlePagination = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    console.log("CurrentPage: " + pageNumber);
+  };
 
-      // Update Redux store with the new data
-      dispatch(updateDogsData(newDogsData));
-      
-      // Append the new data to the existing data
-      setDogsData((prevDogsData) => [...prevDogsData, ...newDogsData]);
-      setLoading(false);
-    })
-    .catch(handleError);
-  }; 
-
-  const isLoadMoreButtonVisible = pageNumber < 5;
+  const indexOfLastDog = currentPage * dogsPerPage;
+  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
+  const currentDogs = filteredPets.length
+    ? filteredPets
+    : dogsData.slice(indexOfFirstDog, indexOfLastDog);
+  console.log("currentDogs " + currentDogs.length);
 
   return (
     <ErrorBoundary>
       <SectionTemplate>
         <Heading text="Dogs" />
-        <SearchAndFilterBar/>
-        {(!dogsData || loading) && <SpinnerLoader/>}
+        <SearchAndFilterBar />
+        {(!currentDogs || loading) && <SpinnerLoader />}
         <PetGridTemplate>
-          {Array.isArray(dogsData) && 
-            dogsData.map((dog) => (
+          {Array.isArray(currentDogs) &&
+            currentDogs.map((dog) => (
               <PetCardTemplate
-                key={dog.name}
+                key={dog.id}
                 linkTo={`/${dog.name.toLowerCase()}`}
-                imageUrl={dog.primary_photo_cropped?.medium || "/Images/dog-paw.svg"}
+                imageUrl={
+                  dog.primary_photo_cropped?.medium || "/Images/dog-paw.svg"
+                }
               >
                 <Paragraph
                   $large
@@ -92,10 +86,15 @@ const SectionDogs = () => {
               </PetCardTemplate>
             ))}
         </PetGridTemplate>
-        {(!dogsData || loading) && <SpinnerLoader/>}
-        {isLoadMoreButtonVisible && 
-        <Button text="Load more" onClick={handleLoadMore}/>
-        }
+        {!filteredPets.length && (
+          <Pagination
+            petsPerPage={dogsPerPage}
+            length={dogsData.length}
+            currentPage={currentPage}
+            handlePagination={handlePagination}
+          />
+        )}
+        {/* {(!dogsData || loading) && <SpinnerLoader />} */}
       </SectionTemplate>
     </ErrorBoundary>
   );

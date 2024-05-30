@@ -1,21 +1,16 @@
 import {
   SearchAndFilterBarContainer,
   SearchAndFilterBarHeading,
-} from "./SearchAndFilterBar.style";
+} from "./SearchAndFilterBarC.style";
 import Button from "@Components/atoms/Button";
 import SearchInput from "../../molecules/SeachInput";
 import FilterPanel from "@Components/molecules/FilterPanel";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectDogsData } from "@Store/Reducers/petsReducer";
 
-const SearchAndFilterBar = () => {
+const SearchAndFilterBarC = () => {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
-  // const dispatch = useAppDispatch();
-  const dogsData = useAppSelector(selectDogsData);
-  console.log("dogsdata is in search", dogsData);
-  
+
   const filterOptions = [
     {
       category: "Age",
@@ -61,4 +56,4 @@ const SearchAndFilterBar = () => {
   );
 };
 
-export default SearchAndFilterBar;
+export default SearchAndFilterBarC;
