@@ -2,7 +2,7 @@
 
 ### About
 
-This project is a Pet Adoption App developed during an internship at Accenture. <br>
+This project is a Pet Adoption App developed after interning at Accenture. With this project, I am covering topics I need more profound understanding and hands-on experience. <br>
 
 The project encompasses both the client/frontend and server/backend components. <br>
 The application leverages the Petfinder.com API to retrieve data about pets, and user interactions on the client side are stored in a MongoDB database. <br>
@@ -16,7 +16,7 @@ https://github.com/users/KristianaTR/projects/2
 
 ### Running the project locally
 
-While this project is in progress you can check it out by running it locally.
+While this project is in progress you can check it out by running it locally. <br>
 Step-by-step guide on how to install and set up the project.
 
 1. Clone the repository: 
