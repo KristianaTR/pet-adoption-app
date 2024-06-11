@@ -8,8 +8,59 @@ import {
   FilterPanelContainer,
 } from "./FilterPanel.style";
 import { FilterPanelProps } from "./FilterPanel.types";
+import { useCallback, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@Store/hooks";
+import { selectDogsData } from "@Store/Reducers/petsReducer";
+import { setFilteredDogs } from "@Store/Actions/petsActions";
 
 const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
+  const dispatch = useAppDispatch();
+  const dogsData = useAppSelector(selectDogsData);
+  interface FiltersState {
+    [key: string]: string[];
+  }
+
+  const initialFilters: FiltersState = filterOptions.reduce<FiltersState>((acc, option) => {
+    acc[option.category] = [];
+    return acc;
+  }, {});
+
+  const [activeFilters, setActiveFilters] = useState<FiltersState>(() => {
+    const savedFilters = localStorage.getItem("activeFilters");
+    return savedFilters ? JSON.parse(savedFilters) : initialFilters;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("activeFilters", JSON.stringify(activeFilters));
+  }, [activeFilters]);
+
+  const toggleFilter = (category: string, value: string) => {
+    setActiveFilters((prevFilters) => {
+      const categoryFilters = prevFilters[category];
+      const newCategoryFilters = categoryFilters.includes(value)
+        ? categoryFilters.filter((filter) => filter !== value)
+        : [...categoryFilters, value];
+      return { ...prevFilters, [category]: newCategoryFilters };
+    });
+  };
+
+  const clearFilters = () => {
+    setActiveFilters(initialFilters);
+    dispatch(setFilteredDogs(dogsData)); 
+  }
+
+  const handleFilter = useCallback(() => {
+    const filteredItems = dogsData.filter(dog => {
+      const ageMatch = activeFilters.Age.length === 0 || activeFilters.Age.includes(dog.age.toLowerCase());
+      const genderMatch =  activeFilters.Gender.length === 0 || activeFilters.Gender.includes(dog.gender.toLowerCase());
+      const sizeMatch =  activeFilters.Size.length === 0 || activeFilters.Size.includes(dog.size.toLowerCase());
+      
+      return ageMatch && genderMatch && sizeMatch;
+    });
+   
+    dispatch(setFilteredDogs(filteredItems));
+  }, [activeFilters, dogsData, dispatch]);
+
   return (
     <>
       {isOpen && (
@@ -35,7 +86,8 @@ const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
                   <FilterBtn
                     key={value}
                     text={value}
-                    // className={isActive && "active"}
+                    onClick={() => toggleFilter(option.category, value)}
+                    className={activeFilters[option.category].includes(value) ? "active" : ""}
                   />
                 ))}
               </FilterBtnContainer>
@@ -43,8 +95,8 @@ const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
             </FilterItem>
           ))}
           <ActionBtnContainer>
-            <Button text="Clear all" />
-            <Button text="Apply" />
+            <Button text="Clear all" onClick={clearFilters}/>
+            <Button text="Apply" onClick={handleFilter}/>
           </ActionBtnContainer>
         </FilterPanelContainer>
       )}

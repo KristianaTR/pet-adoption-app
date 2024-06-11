@@ -7,39 +7,29 @@ import SearchInput from "../../molecules/SeachInput";
 import FilterPanel from "@Components/molecules/FilterPanel";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectDogsData } from "@Store/Reducers/petsReducer";
 
 const SearchAndFilterBar = () => {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
-  // const dispatch = useAppDispatch();
-  const dogsData = useAppSelector(selectDogsData);
-  console.log("dogsdata is in search", dogsData);
   
   const filterOptions = [
     {
       category: "Age",
-      values: ["baby", "young", "adult", "senior", "any"],
+      values: ["baby", "young", "adult", "senior"],
     },
     {
       category: "Gender",
-      values: ["male", "female", "any"],
+      values: ["male", "female"],
     },
     {
       category: "Size",
-      values: ["small", "medium", "large", "xlarge", "any"],
+      values: ["small", "medium", "large", "xlarge"],
     },
   ];
 
   const toggleFilterPanel = () => {
     setIsFilterPanelOpen(!isFilterPanelOpen);
-    console.log("isFilterPanelOpen: " + isFilterPanelOpen);
   };
-
-  // const handleSearch = () => {
-  //   console.log("Searching is active!");
-  // };
-
+  
   return (
     <SearchAndFilterBarContainer>
       <SearchAndFilterBarHeading>
