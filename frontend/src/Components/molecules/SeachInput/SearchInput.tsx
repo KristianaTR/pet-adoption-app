@@ -8,7 +8,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
 import Tooltip from "@atoms/Tooltip";
-import { setFilteredDogs } from "@Store/Actions/petsActions";
+import { setFilteredDogs } from "@Store/Actions/filterActions";
 
 const SearchInput = () => {
   const dispatch = useAppDispatch();

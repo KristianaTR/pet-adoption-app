@@ -11,7 +11,8 @@ import { FilterPanelProps } from "./FilterPanel.types";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
-import { setFilteredDogs } from "@Store/Actions/petsActions";
+import { setFilteredDogs } from "@Store/Actions/filterActions";
+import { setFilterIsActive } from "@Store/Actions/filterActions";
 
 const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
   const dispatch = useAppDispatch();
@@ -46,7 +47,8 @@ const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
 
   const clearFilters = () => {
     setActiveFilters(initialFilters);
-    dispatch(setFilteredDogs(dogsData)); 
+    dispatch(setFilteredDogs(dogsData));
+    dispatch(setFilterIsActive(false));
   }
 
   const handleFilter = useCallback(() => {
@@ -57,8 +59,9 @@ const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
       
       return ageMatch && genderMatch && sizeMatch;
     });
-   
+    console.log(`Filtered Items:`, filteredItems);
     dispatch(setFilteredDogs(filteredItems));
+    dispatch(setFilterIsActive(true));
   }, [activeFilters, dogsData, dispatch]);
 
   return (
