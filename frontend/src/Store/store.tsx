@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import petsReducer from './Reducers/petsReducer';
+import filterReducer from './Reducers/filterReducer';
 
 const store = configureStore({
   reducer: {
     pets: petsReducer,
-  
+    filter: filterReducer,
     // Add other reducers if needed
   },
 })

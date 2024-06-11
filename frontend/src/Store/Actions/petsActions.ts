@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, unwrapResult } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { AppDispatch, RootState } from "../store";
 import { selectAccessToken } from "@Store/Reducers/petsReducer";
@@ -168,10 +168,6 @@ export const fetchDogsData = createAsyncThunk<
     return rejectWithValue(error); // Use rejectWithValue to pass error information
   }
 });
-
-export const setFilteredDogs = createAction<dogDataTypes[]>(
-  "pets/setFilteredDogs"
-);
 
 export const fetchMoreDogsData = createAsyncThunk<
   dogDataTypes[],

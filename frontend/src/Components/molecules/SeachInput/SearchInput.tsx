@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   SearchBtn,
   SearchInputStyled,
   SearchInputWrapper,
 } from "./SearchInput.style";
-import _ from "lodash";
+// import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
 import Tooltip from "@atoms/Tooltip";
-import { setFilteredDogs } from "@Store/Actions/petsActions";
+import { setFilteredDogs } from "@Store/Actions/filterActions";
 
 const SearchInput = () => {
   const dispatch = useAppDispatch();
