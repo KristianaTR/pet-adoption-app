@@ -47,7 +47,7 @@ const FilterPanel = ({ filterOptions, isOpen }: FilterPanelProps) => {
 
   const clearFilters = () => {
     setActiveFilters(initialFilters);
-    dispatch(setFilteredDogs(dogsData));
+    dispatch(setFilteredDogs([]));
     dispatch(setFilterIsActive(false));
   }
 

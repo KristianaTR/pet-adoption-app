@@ -10,6 +10,7 @@ import { selectDogsData } from "@Store/Reducers/petsReducer";
 import {
   selectFilteredDogs,
   selectFilterIsActive,
+  selectSearchIsActive,
 } from "@Store/Reducers/filterReducer";
 import { fetchDogsData } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
@@ -24,9 +25,11 @@ const SectionDogs = () => {
   console.log(dogsData);
   const filteredPets = useAppSelector(selectFilteredDogs);
   const filterIsActive = useAppSelector(selectFilterIsActive);
+  const searchIsActive = useAppSelector(selectSearchIsActive);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 20;
+  console.log("currentPage: "+ currentPage)
 
   const handleError = (error: Error) => {
     console.error("Error:", error);
@@ -44,6 +47,10 @@ const SectionDogs = () => {
     }
   }, [dispatch, dogsData]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredPets]);
+
   const handlePagination = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     console.log("CurrentPage: " + pageNumber);
@@ -51,13 +58,19 @@ const SectionDogs = () => {
 
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = filterIsActive
-    ? filteredPets
-    : dogsData.slice(indexOfFirstDog, indexOfLastDog);
 
+  const currentDogs = filteredPets.length > 0
+  ? filteredPets.slice(indexOfFirstDog, indexOfLastDog)
+  : dogsData.slice(indexOfFirstDog, indexOfLastDog);
+
+  console.log(filteredPets.slice(indexOfFirstDog, indexOfLastDog))
   console.log("currentDogs " + currentDogs.length);
+  console.log("currentDogs " + currentDogs);
   console.log("filterIsActive: " + filterIsActive);
-  const showPagination = !filterIsActive;
+  console.log("searchIsActive: " + searchIsActive);
+  console.log("filteredPets: "+ filteredPets.length);
+  const showPagination = (!filterIsActive || !searchIsActive) ||
+  ((filterIsActive || searchIsActive) && currentDogs.length > dogsPerPage);
 
   return (
     <ErrorBoundary>
