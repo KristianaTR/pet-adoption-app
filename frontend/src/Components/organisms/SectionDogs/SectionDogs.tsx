@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Icon from "@Components/atoms/Icon";
 import PetGridTemplate from "@Components/templates/PetGridTemplate/PetGridTemplate";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
-import { selectDogsData } from "@Store/Reducers/petsReducer";
+import { selectDogsData, selectAccessToken } from "@Store/Reducers/petsReducer";
 import {
   selectFilteredDogs,
   selectFilterIsActive,
@@ -23,6 +23,8 @@ const SectionDogs = () => {
   const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   console.log(dogsData);
+  const petfinderToken = useAppSelector(selectAccessToken);
+  console.log("petfinderToken from redux: "+ petfinderToken);
   const filteredPets = useAppSelector(selectFilteredDogs);
   const filterIsActive = useAppSelector(selectFilterIsActive);
   const searchIsActive = useAppSelector(selectSearchIsActive);
@@ -38,14 +40,13 @@ const SectionDogs = () => {
   };
 
   useEffect(() => {
-    // Check if dogsData is already available
-    if (!dogsData.length) {
+    if (dogsData.length === 0) {
       setLoading(true);
       dispatch(fetchDogsData())
         .then(() => setLoading(false))
         .catch(handleError);
     }
-  }, [dispatch, dogsData]);
+  }, [dispatch, dogsData.length]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -65,7 +66,8 @@ const SectionDogs = () => {
 
   console.log(filteredPets.slice(indexOfFirstDog, indexOfLastDog))
   console.log("currentDogs " + currentDogs.length);
-  console.log("currentDogs " + currentDogs);
+  console.log("currentDogs: ");
+  console.log(currentDogs);
   console.log("filterIsActive: " + filterIsActive);
   console.log("searchIsActive: " + searchIsActive);
   console.log("filteredPets: "+ filteredPets.length);
