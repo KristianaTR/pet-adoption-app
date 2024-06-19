@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SearchBtn,
   SearchInputStyled,
@@ -9,12 +9,29 @@ import { selectDogsData } from "@Store/Reducers/petsReducer";
 import Tooltip from "@atoms/Tooltip";
 import { setFilteredDogs } from "@Store/Actions/filterActions";
 import { setSearchIsActive } from "@Store/Actions/filterActions";
+import { selectSearchIsActive } from "@Store/Reducers/filterReducer";
 
 const SearchInput = () => {
   const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showFilterBtn, setShowFilterBtn] = useState(true);
+  const searchIsActive = useAppSelector(selectSearchIsActive);
+  const [showFilterBtn, setShowFilterBtn] = useState(!searchIsActive);
+
+  useEffect(() => {
+    if (searchIsActive) {
+      console.log("searchTerm: "+ searchTerm );
+      setShowFilterBtn(false);
+      const storedSearchTerm = sessionStorage.getItem("searchTerm");
+      if (storedSearchTerm) {
+        setSearchTerm(storedSearchTerm);
+      }
+    } else {
+      setShowFilterBtn(true);
+      setSearchTerm("");
+      sessionStorage.removeItem("searchTerm");
+    }
+  }, [searchIsActive]);
 
   const handleSearch = () => {
     console.log("Searching: " + searchTerm);
@@ -29,14 +46,14 @@ const SearchInput = () => {
     console.log(filteredItems);
     dispatch(setFilteredDogs(filteredItems));
     dispatch(setSearchIsActive(true));
-    setShowFilterBtn(false);
+    sessionStorage.setItem("searchTerm", searchTerm);
   };
 
   const handleClear = () => {
     dispatch(setFilteredDogs([]));
     dispatch(setSearchIsActive(false));
     setSearchTerm("");
-    setShowFilterBtn(true);
+    sessionStorage.removeItem("searchTerm");
   };
 
   return (

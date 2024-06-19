@@ -15,6 +15,7 @@ export const filterSlice = createSlice({
     builder
       .addCase(setFilterIsActive, (state, action) => {
         state.filterIsActive = action.payload;
+        console.log("filter Is Active:", action.payload);
       })
       .addCase(setSearchIsActive, (state, action) => {
         state.searchIsActive = action.payload;
