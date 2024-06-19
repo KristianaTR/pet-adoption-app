@@ -13,8 +13,6 @@ const Pagination = ({
     paginationNumbers.push(i);
   }
 
-  console.log(paginationNumbers)
-
   return (
     <PaginationContainer>
       {paginationNumbers.map((pageNumber) => (

@@ -28,10 +28,6 @@ export const petsSlice = createSlice({
         state.dataFetched = true;
         console.log("Dogs data API Response:", action.payload);
       })
-      // .addCase(fetchAllDogsData, (state, action) => {
-      //   state.dogsData = action.payload;
-      //   console.log("All Dogs data API Response:", action.payload);
-      // })
       .addCase(fetchPetfinderToken.rejected, (state, action) => {
         console.error("Error fetching Petfinder access token:", action.error);
         state.accessToken = ""; // Set a default or empty string

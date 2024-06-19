@@ -1,50 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SearchBtn,
   SearchInputStyled,
   SearchInputWrapper,
 } from "./SearchInput.style";
-// import _ from "lodash";
 import { useAppDispatch, useAppSelector } from "@Store/hooks";
 import { selectDogsData } from "@Store/Reducers/petsReducer";
 import Tooltip from "@atoms/Tooltip";
 import { setFilteredDogs } from "@Store/Actions/filterActions";
+import { setSearchIsActive } from "@Store/Actions/filterActions";
+import { selectSearchIsActive } from "@Store/Reducers/filterReducer";
 
 const SearchInput = () => {
   const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showFilterBtn, setShowFilterBtn] = useState(true);
+  const searchIsActive = useAppSelector(selectSearchIsActive);
+  const [showFilterBtn, setShowFilterBtn] = useState(!searchIsActive);
 
-  // const debouncedSearch = _.debounce((term: string) => {
-  //   // Your search logic (e.g., API call) goes here
-
-  //   console.log(`Searching for: ${term}`);
-  // }, 4000);
+  useEffect(() => {
+    if (searchIsActive) {
+      console.log("searchTerm: "+ searchTerm );
+      setShowFilterBtn(false);
+      const storedSearchTerm = sessionStorage.getItem("searchTerm");
+      if (storedSearchTerm) {
+        setSearchTerm(storedSearchTerm);
+      }
+    } else {
+      setShowFilterBtn(true);
+      setSearchTerm("");
+      sessionStorage.removeItem("searchTerm");
+    }
+  }, [searchIsActive]);
 
   const handleSearch = () => {
-    // debouncedSearch(value);
     console.log("Searching: " + searchTerm);
-    const filteredItems = dogsData.filter((pet) =>
-      pet.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const searchTermLower = searchTerm.toLowerCase();
+
+    const filteredItems = dogsData.filter((pet) => {
+      const nameMatch = pet.name.toLowerCase().includes(searchTermLower);
+      const idMatch = pet.id.toString().includes(searchTermLower); 
+      return nameMatch || idMatch;
+    });
+
     console.log(filteredItems);
     dispatch(setFilteredDogs(filteredItems));
-    setShowFilterBtn(false);
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log("Enter is pressed!");
-    if (event.key === "Enter") {
-      console.log("Enter is pressed!");
-      handleSearch();
-    }
+    dispatch(setSearchIsActive(true));
+    sessionStorage.setItem("searchTerm", searchTerm);
   };
 
   const handleClear = () => {
     dispatch(setFilteredDogs([]));
+    dispatch(setSearchIsActive(false));
     setSearchTerm("");
-    setShowFilterBtn(true);
+    sessionStorage.removeItem("searchTerm");
   };
 
   return (
@@ -54,7 +63,6 @@ const SearchInput = () => {
         placeholder="Search by pet name or ID"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyPress={(event) => handleKeyPress(event)}
       />
       {showFilterBtn ? (
         <Tooltip tip="Click to search">

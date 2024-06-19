@@ -10,6 +10,7 @@ import { selectDogsData } from "@Store/Reducers/petsReducer";
 import {
   selectFilteredDogs,
   selectFilterIsActive,
+  selectSearchIsActive,
 } from "@Store/Reducers/filterReducer";
 import { fetchDogsData } from "@Store/Actions/petsActions";
 import { FlexContainer } from "@Components/templates/FlexContainerTemplate/FlexContainerTemplate.style";
@@ -17,16 +18,20 @@ import SpinnerLoader from "@Components/molecules/SpinnerLoader";
 import ErrorBoundary from "@Components/molecules/ErrorBoundary";
 import SearchAndFilterBar from "@Components/organisms/SearchAndFilterBar";
 import Pagination from "@Components/molecules/Pagination";
+import { setFilterIsActive } from "@Store/Actions/filterActions";
 
 const SectionDogs = () => {
   const dispatch = useAppDispatch();
   const dogsData = useAppSelector(selectDogsData);
   console.log(dogsData);
   const filteredPets = useAppSelector(selectFilteredDogs);
+  console.log("filteredPets"+filteredPets);
   const filterIsActive = useAppSelector(selectFilterIsActive);
+  const searchIsActive = useAppSelector(selectSearchIsActive);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const dogsPerPage = 20;
+  console.log("currentPage: " + currentPage);
 
   const handleError = (error: Error) => {
     console.error("Error:", error);
@@ -35,14 +40,22 @@ const SectionDogs = () => {
   };
 
   useEffect(() => {
-    // Check if dogsData is already available
-    if (!dogsData.length) {
+    if (dogsData.length === 0) {
       setLoading(true);
       dispatch(fetchDogsData())
         .then(() => setLoading(false))
         .catch(handleError);
     }
-  }, [dispatch, dogsData]);
+  }, [dispatch, dogsData.length]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredPets]);
+
+  useEffect(() => {
+    const savedFilterIsActive = sessionStorage.getItem("filterIsActive") === "true";
+    dispatch(setFilterIsActive(savedFilterIsActive));
+  }, [dispatch]);
 
   const handlePagination = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -51,13 +64,24 @@ const SectionDogs = () => {
 
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = filterIsActive
-    ? filteredPets
-    : dogsData.slice(indexOfFirstDog, indexOfLastDog);
 
+  const currentDogs =
+    filteredPets.length > 0
+      ? filteredPets.slice(indexOfFirstDog, indexOfLastDog)
+      : dogsData.slice(indexOfFirstDog, indexOfLastDog);
+
+  console.log(filteredPets.slice(indexOfFirstDog, indexOfLastDog));
   console.log("currentDogs " + currentDogs.length);
+  console.log("currentDogs: ");
+  console.log(currentDogs);
   console.log("filterIsActive: " + filterIsActive);
-  const showPagination = !filterIsActive;
+  console.log("searchIsActive: " + searchIsActive);
+  console.log("filteredPets: " + filteredPets.length);
+
+  const totalDogs =
+    filteredPets.length > 0 ? filteredPets.length : dogsData.length;
+  console.log("totalDogs: " + totalDogs);
+  const showPagination = totalDogs > dogsPerPage;
 
   return (
     <ErrorBoundary>
@@ -65,7 +89,7 @@ const SectionDogs = () => {
         <Heading text="Dogs" />
         <SearchAndFilterBar />
         {loading && <SpinnerLoader />}
-        {filterIsActive && filteredPets.length === 0 ? (
+        {!loading && filterIsActive && filteredPets.length === 0 ? (
           <Paragraph text="Sorry, no dogs match your filter criteria. Please adjust your filters and try again." />
         ) : (
           <PetGridTemplate>
