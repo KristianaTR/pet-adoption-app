@@ -11,7 +11,7 @@ const Header = () => {
 
   const navigationRoutes: NavigationRoute[] = [
     { name: "Home", path: "/", current: true },
-    { name: "About", path: "/about", current: false },
+    { name: "About", path: "/comingSoon", current: false },
     { name: "Adopt", path: "/adopt", current: false },
   ];
 

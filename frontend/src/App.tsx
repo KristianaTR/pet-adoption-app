@@ -4,7 +4,7 @@ import AdoptPage from "@Pages/AdoptPage";
 import HomePage from "@Pages/HomePage";
 import DogPage from "@Pages/DogPage";
 // import { BrowserRouter as Router } from 'react-router-dom';
-import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import PetDetailPage from "@Pages/PetDetailPage/PetDetailPage";
 import ComingSoonPage from "@Pages/ComingSoonPage";
 
