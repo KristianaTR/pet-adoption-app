@@ -6,8 +6,8 @@ export const PageContainer = styled.div`
   background-image: url("/Images/dog-paw.svg");
   background-repeat: space;
   padding: 120px 40px;
-//   height: 100vh;
   display: flex;
+  flex: 1; 
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
