@@ -4,9 +4,10 @@ import AdoptPage from "@Pages/AdoptPage";
 import HomePage from "@Pages/HomePage";
 import DogPage from "@Pages/DogPage";
 // import { BrowserRouter as Router } from 'react-router-dom';
-import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import PetDetailPage from "@Pages/PetDetailPage/PetDetailPage";
 import ComingSoonPage from "@Pages/ComingSoonPage";
+import LogInPage from "@Pages/LogInPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/adopt" element={<AdoptPage />} />
         <Route path="/dog" element={<DogPage />} />
         <Route path="/comingSoon" element={<ComingSoonPage />} />
+        <Route path="/logIn" element={<LogInPage />} />
         <Route path="/" element={<Outlet />}>
           {/* Add a nested route for individual dogs */}
           <Route path=":dogName" element={<PetDetailPage />} />
