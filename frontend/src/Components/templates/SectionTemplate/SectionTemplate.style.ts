@@ -16,5 +16,5 @@ export const SectionContainer = styled.div`
   width: 100%;
   // min-height: 80vh;
   max-width: ${size.laptop};
-  margin: auto;
+  margin: 0 auto;
 `;
